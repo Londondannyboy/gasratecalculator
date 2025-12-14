@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -25,9 +26,9 @@ export default function Page() {
           <p className="text-slate-300 mb-4">
             Use our quote calculator to get personalized estimates for trainee yoga teacher insurance.
           </p>
-          <a href="/#calculator" className="inline-block px-8 py-3 bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-600 transition-colors">
+          <Link href="/#calculator" className="inline-block px-8 py-3 bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-600 transition-colors">
             Get Trainee Quote
-          </a>
+          </Link>
         </div>
 
         <section className="my-12">
@@ -86,9 +87,9 @@ export default function Page() {
           <p className="text-slate-400 mb-4">
             Getting insurance as a trainee yoga teacher is a smart investment in your career. It satisfies course requirements, protects your students, and demonstrates professionalism from day one.
           </p>
-          <a href="/compare-yoga-teacher-insurance-uk" className="inline-block px-6 py-2 bg-slate-700 text-white font-semibold rounded-lg hover:bg-slate-600 transition-colors">
+          <Link href="/compare-yoga-teacher-insurance-uk" className="inline-block px-6 py-2 bg-slate-700 text-white font-semibold rounded-lg hover:bg-slate-600 transition-colors">
             Compare Training Insurance Quotes
-          </a>
+          </Link>
         </section>
       </article>
     </div>

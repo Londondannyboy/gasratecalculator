@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -25,9 +26,9 @@ export default function Page() {
           <p className="text-slate-300 mb-4">
             Use our quote calculator to see estimated premiums for your specific teaching situation.
           </p>
-          <a href="/#calculator" className="inline-block px-8 py-3 bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-600 transition-colors">
+          <Link href="/#calculator" className="inline-block px-8 py-3 bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-600 transition-colors">
             Get Quote Now
-          </a>
+          </Link>
         </div>
 
         <section className="my-12">
@@ -132,9 +133,9 @@ export default function Page() {
 
         <div className="text-center mt-16">
           <p className="text-slate-400 mb-6">Ready to get insured?</p>
-          <a href="/#calculator" className="inline-block px-8 py-4 bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-600 transition-colors">
+          <Link href="/#calculator" className="inline-block px-8 py-4 bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-600 transition-colors">
             Get Your Quote Now
-          </a>
+          </Link>
         </div>
       </article>
     </div>

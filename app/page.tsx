@@ -178,7 +178,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Peace of Mind</h3>
               <p className="text-sm text-slate-400">
-                Focus on teaching while knowing you're protected. Insurance covers defense
+                Focus on teaching while knowing you&apos;re protected. Insurance covers defense
                 against claims and helps resolve disputes professionally.
               </p>
             </div>

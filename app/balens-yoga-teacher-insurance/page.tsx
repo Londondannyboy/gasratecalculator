@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -16,7 +17,7 @@ export default function Page() {
         <p className="text-lg text-slate-400 mb-8">Balens provides professional indemnity and public liability insurance for yoga instructors.</p>
         
         <div className="bg-blue-500/10 border border-blue-500/30 rounded-2xl p-6 mb-8">
-          <a href="/#calculator" className="inline-block px-8 py-3 bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-600 transition-colors">Get Quote Now</a>
+          <Link href="/#calculator" className="inline-block px-8 py-3 bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-600 transition-colors">Get Quote Now</Link>
         </div>
 
         <div className="prose prose-invert max-w-none">

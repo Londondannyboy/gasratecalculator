@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -56,9 +57,9 @@ export default function Page() {
               <div>
                 <h3 className="text-sm font-semibold text-slate-300 mb-2">Quick Links</h3>
                 <ul className="text-slate-400 space-y-2">
-                  <li><a href="/#calculator" className="hover:text-blue-400 transition-colors">Get Quote</a></li>
-                  <li><a href="/compare-yoga-teacher-insurance-uk" className="hover:text-blue-400 transition-colors">Compare Providers</a></li>
-                  <li><a href="/privacy" className="hover:text-blue-400 transition-colors">Privacy Policy</a></li>
+                  <li><Link href="/#calculator" className="hover:text-blue-400 transition-colors">Get Quote</Link></li>
+                  <li><Link href="/compare-yoga-teacher-insurance-uk" className="hover:text-blue-400 transition-colors">Compare Providers</Link></li>
+                  <li><Link href="/privacy" className="hover:text-blue-400 transition-colors">Privacy Policy</Link></li>
                 </ul>
               </div>
 
