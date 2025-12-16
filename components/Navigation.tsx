@@ -8,9 +8,9 @@ export function Navigation() {
 
   const navLinks = [
     { href: '#calculator', label: 'Get Quote' },
+    { href: '/aerial-yoga-insurance', label: 'Aerial Yoga' },
+    { href: '/hot-yoga-insurance', label: 'Hot Yoga' },
     { href: '#coverage', label: 'Coverage' },
-    { href: '#providers', label: 'Providers' },
-    { href: '#faq', label: 'FAQ' },
     { href: '/articles', label: 'Articles' },
   ]
 
