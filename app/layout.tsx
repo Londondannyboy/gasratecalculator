@@ -5,7 +5,6 @@ import { Navigation } from "@/components/Navigation"
 import { Footer } from "@/components/Footer"
 import { CookieConsent } from "@/components/CookieConsent"
 import { Providers } from "@/components/providers"
-import { FloatingVoice } from "@/components/FloatingVoice"
 import { Disclaimer } from "@/components/Disclaimer"
 
 const inter = Inter({
@@ -149,7 +148,6 @@ export default function RootLayout({
           </main>
           <Footer />
           <CookieConsent />
-          <FloatingVoice />
         </Providers>
       </body>
     </html>

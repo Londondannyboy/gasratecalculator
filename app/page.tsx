@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { QuoteCalculator } from '@/components/QuoteCalculator'
+import { HeroVoice } from '@/components/HeroVoice'
 
 export const metadata: Metadata = {
   title: 'Yoga Teacher Insurance UK 2025 | Compare Quotes from £15/month',
@@ -116,12 +117,15 @@ export default function HomePage() {
           <p className="text-sm text-slate-300 mb-6">
             <strong>Yoga teacher insurance from £15/month</strong> • Compare quotes in minutes • Get instant coverage
           </p>
-          <div className="flex flex-wrap justify-center gap-3 text-sm text-slate-200">
+          <div className="flex flex-wrap justify-center gap-3 text-sm text-slate-200 mb-10">
             <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">Professional Indemnity</span>
             <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">Public Liability</span>
             <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">Yoga Alliance</span>
             <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">Student Protection</span>
           </div>
+
+          {/* Voice Assistant */}
+          <HeroVoice />
         </div>
       </section>
 

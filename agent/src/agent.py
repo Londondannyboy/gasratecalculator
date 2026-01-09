@@ -268,6 +268,7 @@ agent = Agent(
         - explain_coverage: Explain what different coverage types mean
         - get_style_requirements: Get insurance requirements for specific yoga styles
         - get_provider_info: Get details about a specific insurance provider
+        - get_my_profile: Get the user's profile (name, email, preferences) - use when they ask "who am I" or "what's my name"
 
         ## Conversation Style
         - Ask clarifying questions to give personalized advice
@@ -480,6 +481,47 @@ def get_quick_quote_checklist(
             "Check if online teaching is included (important post-COVID)",
             "Ask about monthly payment options if budget is tight"
         ]
+    }
+
+
+@agent.tool
+def get_my_profile(
+    ctx: RunContext[StateDeps[AppState]]
+) -> dict:
+    """
+    Get the current user's profile information.
+    Returns user details from state or cached instructions.
+    Use this when the user asks about their profile, name, or account.
+    """
+    state = ctx.deps.state
+    user = state.user if state else None
+
+    # Try to get info from state first, then from cached instructions
+    user_id = user.id if user and user.id else _cached_user_context.get("user_id")
+    name = get_effective_user_name(user)
+    first_name = user.firstName if user and user.firstName else (name.split()[0] if name else None)
+    email = user.email if user and user.email else _cached_user_context.get("email")
+
+    if not user_id and not name:
+        return {
+            "logged_in": False,
+            "message": "You're not currently logged in. Sign in to save your preferences and get personalized insurance recommendations.",
+            "action": "Click 'Sign In' in the top navigation to create an account or log in."
+        }
+
+    return {
+        "logged_in": True,
+        "user_id": user_id,
+        "name": name,
+        "first_name": first_name,
+        "email": email,
+        "preferences": {
+            "yoga_styles": state.yoga_styles if state else [],
+            "teaching_locations": state.teaching_locations if state else [],
+            "student_count": state.student_count if state else None,
+            "has_existing_insurance": state.has_existing_insurance if state else False
+        },
+        "message": f"Hi {first_name}! Here's your profile information."
     }
 
 
