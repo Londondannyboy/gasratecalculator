@@ -3,15 +3,20 @@ Yoga Teacher Insurance Agent
 CopilotKit + Pydantic AI integration for insurance advice
 """
 from textwrap import dedent
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent, RunContext
 from pydantic_ai.ag_ui import StateDeps
 from pydantic_ai.models.google import GoogleModel
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.responses import StreamingResponse
 import os
 import sys
+import json
+import uuid
+import time
+import asyncio
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -584,12 +589,143 @@ main_app.add_middleware(
 @main_app.get("/")
 def root():
     """Health check endpoint."""
-    return {"status": "ok", "agent": "yoga-insurance-agent"}
+    return {
+        "status": "ok",
+        "agent": "yoga-insurance-agent",
+        "endpoints": [
+            "/agui (AG-UI for CopilotKit)",
+            "/chat/completions (CLM for Hume Voice)",
+            "/health"
+        ]
+    }
 
 @main_app.get("/health")
 def health():
     """Health check for Railway."""
     return {"status": "healthy"}
+
+
+# =====
+# CLM Endpoint for Hume Voice
+# =====
+class ChatMessage(BaseModel):
+    role: str
+    content: str
+
+
+class ChatCompletionRequest(BaseModel):
+    messages: List[ChatMessage]
+    model: Optional[str] = "yoga-insurance-agent"
+    stream: Optional[bool] = True
+
+
+async def stream_sse_response(content: str, msg_id: str):
+    """Stream OpenAI-compatible SSE chunks for Hume EVI."""
+    words = content.split(' ')
+    for i, word in enumerate(words):
+        chunk = {
+            "id": msg_id,
+            "object": "chat.completion.chunk",
+            "created": int(time.time()),
+            "model": "yoga-insurance-agent",
+            "choices": [{
+                "index": 0,
+                "delta": {"content": word + (' ' if i < len(words) - 1 else '')},
+                "finish_reason": None
+            }]
+        }
+        yield f"data: {json.dumps(chunk)}\n\n"
+        await asyncio.sleep(0.01)
+
+    final = {
+        "id": msg_id,
+        "object": "chat.completion.chunk",
+        "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}]
+    }
+    yield f"data: {json.dumps(final)}\n\n"
+    yield "data: [DONE]\n\n"
+
+
+async def run_agent_for_clm(user_message: str, system_prompt: str = None) -> str:
+    """Run the Pydantic AI agent and return text response."""
+    try:
+        # Extract user context from system prompt if provided
+        if system_prompt:
+            extract_user_from_instructions(system_prompt)
+
+        print(f"[CLM] Starting agent run for: {user_message[:50]}", file=sys.stderr)
+        print(f"[CLM] Cached user context: {_cached_user_context}", file=sys.stderr)
+
+        # Build state with cached user if available
+        state = AppState()
+        if _cached_user_context.get("name") or _cached_user_context.get("user_id"):
+            state.user = UserProfile(
+                id=_cached_user_context.get("user_id"),
+                name=_cached_user_context.get("name"),
+                firstName=_cached_user_context.get("name"),
+                email=_cached_user_context.get("email")
+            )
+            print(f"[CLM] State user set: {state.user.name}", file=sys.stderr)
+
+        deps = StateDeps(state)
+        result = await agent.run(user_message, deps=deps)
+        print(f"[CLM] Agent result type: {type(result)}", file=sys.stderr)
+
+        # Pydantic AI returns result.output for the text response
+        if hasattr(result, 'output') and result.output:
+            return str(result.output)
+        if hasattr(result, 'data') and result.data:
+            return str(result.data)
+        return str(result)
+    except Exception as e:
+        import traceback
+        print(f"[CLM] Agent error: {e}", file=sys.stderr)
+        print(f"[CLM] Traceback: {traceback.format_exc()}", file=sys.stderr)
+        return "Sorry, I couldn't process that request. Try asking about yoga teacher insurance!"
+
+
+@main_app.post("/chat/completions")
+async def clm_endpoint(request: ChatCompletionRequest):
+    """OpenAI-compatible endpoint for Hume CLM."""
+    # Extract system prompt (contains user context from Hume)
+    system_prompt = None
+    for msg in request.messages:
+        if msg.role == "system":
+            system_prompt = msg.content
+            print(f"[CLM] Found system prompt: {system_prompt[:100]}...", file=sys.stderr)
+            break
+
+    # Get user message (last non-system message)
+    user_message = ""
+    for msg in reversed(request.messages):
+        if msg.role == "user":
+            user_message = msg.content
+            break
+    print(f"[CLM] Query: {user_message[:80]}", file=sys.stderr)
+
+    # Run agent with system prompt for user context
+    response_text = await run_agent_for_clm(user_message, system_prompt)
+    print(f"[CLM] Response: {response_text[:80]}", file=sys.stderr)
+
+    if request.stream:
+        msg_id = f"chatcmpl-{uuid.uuid4().hex[:8]}"
+        return StreamingResponse(
+            stream_sse_response(response_text, msg_id),
+            media_type="text/event-stream"
+        )
+    else:
+        return {
+            "id": f"chatcmpl-{uuid.uuid4().hex[:8]}",
+            "object": "chat.completion",
+            "created": int(time.time()),
+            "model": "yoga-insurance-agent",
+            "choices": [{
+                "index": 0,
+                "message": {"role": "assistant", "content": response_text},
+                "finish_reason": "stop"
+            }]
+        }
+
 
 # Mount AG-UI app for CopilotKit
 main_app.mount("/agui", ag_ui_app)
