@@ -49,7 +49,7 @@ export default function ArticlePage() {
           <div className="mb-8">
             <div className="relative h-64 md:h-72 rounded-xl overflow-hidden mb-8 border border-amber-500/20">
               <img
-                src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&h=600&fit=crop&q=80"
+                src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=1200&h=600&fit=crop&q=80"
                 alt="trainee yoga teacher insurance student coverage training course protection"
                 className="w-full h-full object-cover"
               />

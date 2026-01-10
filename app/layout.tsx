@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer"
 import { CookieConsent } from "@/components/CookieConsent"
 import { Providers } from "@/components/providers"
 import { Disclaimer } from "@/components/Disclaimer"
+import { DebugPanel, BetaBadge } from "@/components/DebugPanel"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -157,6 +158,8 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} antialiased bg-slate-900 text-white`}>
         <Providers>
+          <BetaBadge />
+          <DebugPanel />
           <Disclaimer />
           <Navigation />
           <main className="min-h-screen">
