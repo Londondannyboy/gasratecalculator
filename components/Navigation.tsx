@@ -12,9 +12,10 @@ export function Navigation() {
 
   const navLinks = [
     { href: '#calculator', label: 'Get Quote' },
-    { href: '/aerial-yoga-insurance', label: 'Aerial Yoga' },
+    { href: '/aerial-yoga-insurance', label: 'Aerial' },
     { href: '/hot-yoga-insurance', label: 'Hot Yoga' },
-    { href: '#coverage', label: 'Coverage' },
+    { href: '/meditation-teacher-insurance', label: 'Meditation' },
+    { href: '/yoga-studio-insurance', label: 'Studios' },
     { href: '/articles', label: 'Articles' },
   ]
 
@@ -71,9 +72,10 @@ export function Navigation() {
               <div className="flex items-center gap-3">
                 <Link
                   href="/profile"
-                  className="text-slate-300 hover:text-white text-sm transition-colors"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-300 hover:bg-purple-500/30 text-sm transition-colors"
                 >
-                  {user.name?.split(' ')[0] || 'Profile'}
+                  <span>🧘‍♀️</span>
+                  <span>{user.name?.split(' ')[0] || 'My Journey'}</span>
                 </Link>
                 <UserButton size="icon" />
               </div>
