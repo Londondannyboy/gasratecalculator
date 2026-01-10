@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
-const CONSENT_KEY = 'msi_cookie_consent'
+const CONSENT_KEY = 'gas_calc_cookie_consent'
 
 export function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false)
@@ -40,17 +40,25 @@ export function CookieConsent() {
             We use cookies to improve your experience.{' '}
             <Link
               href="/privacy"
-              className="text-blue-400 hover:text-blue-300 underline"
+              className="text-orange-400 hover:text-orange-300 underline"
               onClick={(e) => e.stopPropagation()}
             >
               Privacy Policy
             </Link>
+            {' '}&{' '}
+            <Link
+              href="/terms"
+              className="text-orange-400 hover:text-orange-300 underline"
+              onClick={(e) => e.stopPropagation()}
+            >
+              Terms of Service
+            </Link>
           </p>
           <button
             onClick={dismiss}
-            className="flex-shrink-0 px-4 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-md transition-colors"
+            className="flex-shrink-0 px-4 py-1.5 text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 rounded-md transition-colors"
           >
-            Got it
+            Accept
           </button>
         </div>
       </div>

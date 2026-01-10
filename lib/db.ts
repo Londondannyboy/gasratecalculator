@@ -8,4 +8,4 @@ export function createDbQuery() {
   return neon(connectionString)
 }
 
-export const SITE_ID = 'yoga-teacher-insurance'
+export const SITE_ID = 'gas-rate-calculator'

@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ZepClient } from '@getzep/zep-cloud';
 
-// Graph ID for shared insurance knowledge
-const INSURANCE_GRAPH_ID = 'insurance';
+// Graph ID for shared gas engineering knowledge
+const GAS_GRAPH_ID = 'gas-engineering';
 
 // Initialize Zep client
 const getZepClient = () => {
@@ -70,49 +70,49 @@ export async function POST(request: NextRequest) {
         });
         return NextResponse.json({ success: true });
 
-      case 'init_insurance_graph':
-        // Initialize the shared insurance knowledge graph
+      case 'init_gas_graph':
+        // Initialize the shared gas engineering knowledge graph
         try {
           await client.graph.create({
-            graphId: INSURANCE_GRAPH_ID,
-            name: 'Yoga Teacher Insurance Knowledge Graph',
+            graphId: GAS_GRAPH_ID,
+            name: 'Gas Engineering Knowledge Graph',
           });
-          return NextResponse.json({ success: true, graphId: INSURANCE_GRAPH_ID, created: true });
+          return NextResponse.json({ success: true, graphId: GAS_GRAPH_ID, created: true });
         } catch (e: any) {
           // Graph might already exist
           if (e.message?.includes('already exists')) {
-            return NextResponse.json({ success: true, graphId: INSURANCE_GRAPH_ID, created: false });
+            return NextResponse.json({ success: true, graphId: GAS_GRAPH_ID, created: false });
           }
           throw e;
         }
 
-      case 'add_insurance_knowledge':
-        // Add knowledge to the shared insurance graph
+      case 'add_gas_knowledge':
+        // Add knowledge to the shared gas engineering graph
         const { knowledge } = body;
         if (!knowledge) {
           return NextResponse.json(
-            { error: 'knowledge is required for add_insurance_knowledge action' },
+            { error: 'knowledge is required for add_gas_knowledge action' },
             { status: 400 }
           );
         }
         await client.graph.add({
-          graphId: INSURANCE_GRAPH_ID,
+          graphId: GAS_GRAPH_ID,
           type: 'text',
           data: knowledge,
         });
         return NextResponse.json({ success: true });
 
-      case 'search_insurance':
-        // Search the insurance knowledge graph
+      case 'search_gas':
+        // Search the gas engineering knowledge graph
         const { query } = body;
         if (!query) {
           return NextResponse.json(
-            { error: 'query is required for search_insurance action' },
+            { error: 'query is required for search_gas action' },
             { status: 400 }
           );
         }
         const results = await client.graph.search({
-          graphId: INSURANCE_GRAPH_ID,
+          graphId: GAS_GRAPH_ID,
           query: query,
           limit: 10,
         });

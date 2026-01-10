@@ -4,6 +4,7 @@ import "./globals.css"
 import { Navigation } from "@/components/Navigation"
 import { Footer } from "@/components/Footer"
 import { CookieConsent } from "@/components/CookieConsent"
+import { Disclaimer } from "@/components/Disclaimer"
 import { Providers } from "@/components/providers"
 
 const inter = Inter({
@@ -152,6 +153,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} antialiased bg-slate-900 text-white`}>
         <Providers>
+          <Disclaimer />
           <Navigation />
           <main className="min-h-screen">
             {children}
