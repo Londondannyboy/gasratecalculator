@@ -5,8 +5,6 @@ import { Navigation } from "@/components/Navigation"
 import { Footer } from "@/components/Footer"
 import { CookieConsent } from "@/components/CookieConsent"
 import { Providers } from "@/components/providers"
-import { Disclaimer } from "@/components/Disclaimer"
-import { DebugPanel, BetaBadge } from "@/components/DebugPanel"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,43 +13,42 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Yoga Teacher Insurance UK 2026 | Compare Quotes from £15/month",
-    template: "%s | Yoga Teacher Insurance UK"
+    default: "Gas Rate Calculator UK | Free Heat Input Calculator for Gas Engineers",
+    template: "%s | Gas Rate Calculator UK"
   },
-  description: "Yoga teacher insurance UK - compare quotes from specialist providers. Get professional indemnity & public liability insurance for yoga instructors, trainers & studio owners. Quotes from leading insurers.",
+  description: "Free UK gas rate calculator for gas engineers. Calculate gas appliance heat input in kW from meter readings or test dial. Essential tool for Gas Safe registered engineers.",
   keywords: [
-    "yoga teacher insurance",
-    "yoga teacher insurance uk",
-    "yoga instructor insurance",
-    "insurance for yoga teachers",
-    "insurance for yoga teachers uk",
-    "yoga teachers insurance",
-    "professional indemnity yoga",
-    "yoga teacher liability insurance",
-    "yoga studio insurance",
-    "best yoga teacher insurance uk",
-    "compare yoga teacher insurance",
-    "yoga training insurance"
+    "gas rate calculator",
+    "gas rate calculator uk",
+    "heat input calculator",
+    "gas appliance calculator",
+    "gas engineer calculator",
+    "gas safe calculator",
+    "kW calculator",
+    "gas consumption calculator",
+    "test dial calculator",
+    "burner pressure calculator",
+    "gas flow rate calculator"
   ],
-  authors: [{ name: "Yoga Teacher Insurance UK" }],
-  creator: "Yoga Teacher Insurance UK",
-  publisher: "Yoga Teacher Insurance UK",
-  metadataBase: new URL("https://yogateacherinsurance.quest"),
+  authors: [{ name: "Gas Rate Calculator UK" }],
+  creator: "Gas Rate Calculator UK",
+  publisher: "Gas Rate Calculator UK",
+  metadataBase: new URL("https://gasratecalculator.quest"),
   alternates: {
-    canonical: "https://yogateacherinsurance.quest",
+    canonical: "https://gasratecalculator.quest",
   },
   openGraph: {
     type: "website",
     locale: "en_GB",
-    url: "https://yogateacherinsurance.quest",
-    siteName: "Yoga Teacher Insurance UK",
-    title: "Yoga Teacher Insurance UK 2026 | Compare Quotes",
-    description: "Yoga teacher insurance UK - compare quotes from specialist providers. Get professional indemnity & public liability insurance for yoga instructors & studio owners.",
+    url: "https://gasratecalculator.quest",
+    siteName: "Gas Rate Calculator UK",
+    title: "Gas Rate Calculator UK | Free Heat Input Calculator",
+    description: "Free UK gas rate calculator for gas engineers. Calculate appliance heat input in kW from meter readings or test dial.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yoga Teacher Insurance UK | Compare Quotes",
-    description: "Yoga teacher insurance from UK specialists. Compare quotes for yoga instructors, trainers & studio owners.",
+    title: "Gas Rate Calculator UK | Free Heat Input Calculator",
+    description: "Free gas rate calculator for UK gas engineers. Calculate heat input in kW.",
   },
   robots: {
     index: true,
@@ -65,61 +62,58 @@ export const metadata: Metadata = {
     },
   },
   appleWebApp: {
-    title: "Yoga Teacher Insurance UK",
+    title: "Gas Rate Calculator UK",
     capable: true,
     statusBarStyle: "black-translucent",
   },
-  // Icons auto-detected from app/ folder: favicon.ico, icon.png, icon.svg, apple-icon.png
 }
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": "https://yogateacherinsurance.quest/#website",
-  name: "Yoga Teacher Insurance UK",
-  alternateName: ["Yoga Instructor Insurance UK", "Insurance for Yoga Teachers", "Professional Indemnity Yoga"],
-  url: "https://yogateacherinsurance.quest",
-  description: "Yoga teacher insurance UK comparison service. Get professional indemnity & public liability insurance for yoga instructors, trainers & studio owners from specialist UK insurers.",
+  "@id": "https://gasratecalculator.quest/#website",
+  name: "Gas Rate Calculator UK",
+  alternateName: ["Heat Input Calculator", "Gas Engineer Calculator", "Gas Safe Calculator"],
+  url: "https://gasratecalculator.quest",
+  description: "Free UK gas rate calculator for Gas Safe registered engineers. Calculate appliance heat input in kW from meter readings or test dial measurements.",
   inLanguage: "en-GB",
   publisher: {
     "@type": "Organization",
-    "@id": "https://yogateacherinsurance.quest/#organization",
-    name: "Yoga Teacher Insurance UK",
-    url: "https://yogateacherinsurance.quest",
+    "@id": "https://gasratecalculator.quest/#organization",
+    name: "Gas Rate Calculator UK",
+    url: "https://gasratecalculator.quest",
     logo: {
       "@type": "ImageObject",
-      "@id": "https://yogateacherinsurance.quest/#logo",
-      url: "https://yogateacherinsurance.quest/icon.svg",
-      contentUrl: "https://yogateacherinsurance.quest/icon.svg",
+      "@id": "https://gasratecalculator.quest/#logo",
+      url: "https://gasratecalculator.quest/icon.svg",
+      contentUrl: "https://gasratecalculator.quest/icon.svg",
       width: 512,
       height: 512,
-      caption: "Yoga Teacher Insurance UK"
+      caption: "Gas Rate Calculator UK"
     }
   }
 }
 
-const serviceJsonLd = {
+const softwareJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Service",
-  "@id": "https://yogateacherinsurance.quest/#service",
-  name: "Yoga Teacher Insurance UK Comparison",
-  alternateName: "Insurance for Yoga Teachers Comparison",
-  description: "Compare yoga teacher insurance UK quotes from specialist providers. Find professional indemnity & public liability insurance for yoga instructors, trainers & studio owners. Compare Yoga Alliance, Balens, specialist providers and more.",
-  provider: {
-    "@type": "Organization",
-    name: "Yoga Teacher Insurance UK"
-  },
-  areaServed: {
-    "@type": "Country",
-    name: "United Kingdom"
-  },
-  serviceType: "Yoga Teacher Insurance Comparison",
+  "@type": "SoftwareApplication",
+  "@id": "https://gasratecalculator.quest/#app",
+  name: "Gas Rate Calculator UK",
+  alternateName: "Heat Input Calculator",
+  description: "Free online gas rate calculator for UK gas engineers. Calculate gas appliance heat input in kW from meter readings or test dial. Supports metric and imperial measurements.",
+  applicationCategory: "UtilityApplication",
+  operatingSystem: "Any",
   offers: {
     "@type": "Offer",
     price: "0",
-    priceCurrency: "GBP",
-    description: "Free yoga teacher insurance quotes UK"
-  }
+    priceCurrency: "GBP"
+  },
+  featureList: [
+    "Metric (m³) and Imperial (cu ft) modes",
+    "Built-in stopwatch timer",
+    "Gross and Net kW calculation",
+    "Gas Safe compliant formulas"
+  ]
 }
 
 const breadcrumbJsonLd = {
@@ -129,8 +123,8 @@ const breadcrumbJsonLd = {
     {
       "@type": "ListItem",
       position: 1,
-      name: "Yoga Teacher Insurance",
-      item: "https://yogateacherinsurance.quest"
+      name: "Gas Rate Calculator",
+      item: "https://gasratecalculator.quest"
     }
   ]
 }
@@ -149,7 +143,7 @@ export default function RootLayout({
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
         />
         <script
           type="application/ld+json"
@@ -158,9 +152,6 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} antialiased bg-slate-900 text-white`}>
         <Providers>
-          <BetaBadge />
-          <DebugPanel />
-          <Disclaimer />
           <Navigation />
           <main className="min-h-screen">
             {children}

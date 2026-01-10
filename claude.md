@@ -1,101 +1,40 @@
-# Yoga Teacher Insurance Quest - Development Guide
+# Gas Rate Calculator Quest V2 - Development Guide
 
 ## Project Overview
 
-**Site:** yogateacherinsurance.quest
-**Status:** AI agent integration COMPLETE (CopilotKit + Neon Auth + Hume Voice + Gamification)
-**SEO Win:** Page 1 UK for "aerial yoga teacher insurance" + "hot yoga insurance"
+**Site:** gasratecalculator.quest
+**Status:** V2 rebuild in progress (CopilotKit + Pydantic AI + Hume Voice)
+**Purpose:** Free gas rate calculator for UK gas engineers to calculate appliance heat input
 
 ---
 
-## Current Implementation Status (January 2026)
+## What This Tool Does
 
-### COMPLETED
-- [x] **Phase 1: CopilotKit + Pydantic AI** - Chat agent deployed to Railway
-- [x] **Phase 2: Neon Auth** - User authentication working (Google OAuth)
-- [x] **Phase 3: Hume EVI** - Voice widget in hero section
-- [x] **Gamified Profile Page** - XP system, levels, yoga journey progression
-- [x] **Zep Integration** - API routes for memory persistence
-- [x] **New SEO Pages** - Meditation, Studio, Public Liability insurance pages
-- [x] **Agent Prompt Update** - 5 qualifying questions before recommendations
-- [x] **All 2025 → 2026** - Updated year references across all pages
-
-### CONFIGURED IN VERCEL
-- `AGENT_URL` - https://yoga-insurance-agent-production.up.railway.app/agui/
-- `HUME_API_KEY` - Configured
-- `HUME_SECRET_KEY` - Configured
-- `NEXT_PUBLIC_HUME_CONFIG_ID` - 8e6530df-c020-4b82-bfd3-62617a100b17
-- `ZEP_API_KEY` - Add for memory persistence
+The Gas Rate Calculator helps UK Gas Safe registered engineers:
+- Calculate heat input (kW) from meter readings
+- Support both metric (m³) and imperial (cu ft) measurements
+- Built-in timer for precise timing
+- Calculate gross and net kW values
+- Essential for commissioning, servicing, and fault-finding
 
 ---
 
-## New Pages (January 2026)
+## V2 Features (To Build)
 
-| Page | URL | Purpose |
-|------|-----|---------|
-| Meditation Teacher | `/meditation-teacher-insurance` | Mindfulness/breathwork coverage |
-| Yoga Studio | `/yoga-studio-insurance` | Business coverage for studio owners |
-| Public Liability | `/public-liability-insurance-yoga-teachers` | Dedicated PL coverage page |
+### Core Calculator
+- [x] Metric mode: Start/end meter readings + time
+- [x] Imperial mode: Test dial size + revolution time
+- [x] Built-in stopwatch timer
+- [x] Gross/Net kW output
+- [ ] Voice-enabled calculations (Hume EVI)
+- [ ] AI assistant for gas engineering questions (CopilotKit)
 
-All pages have:
-- PageHero component with HeroVoice widget
-- Proper SEO metadata
-- FAQ schema for Google
-- Internal linking
-
----
-
-## Gamified Profile Page
-
-The profile page (`/profile`) includes:
-
-### XP System
-- Yoga styles: +10 XP each
-- Locations: +15 XP each
-- Experience: 5-75 XP based on years
-- Qualifications: 20-75 XP each
-- Student count: 10-50 XP
-- Has insurance: +20 XP bonus
-
-### Levels & Titles
-| Level | XP Required | Title |
-|-------|-------------|-------|
-| 1 | 0-49 | Yoga Beginner |
-| 2 | 50-99 | Emerging Teacher |
-| 4 | 150-199 | Growing Instructor |
-| 6 | 250-299 | Experienced Yogi |
-| 8 | 350-399 | Enlightened Teacher |
-| 10+ | 450+ | Yoga Master |
-
-### Features
-- Progress circle showing completion %
-- Confetti celebration on profile complete
-- Animated purple/blue background
-- Next step prompts
-- Saves to Zep for AI memory
-
----
-
-## Agent Configuration
-
-### System Prompt (Namaste Personality)
-The agent has a zen-like personality and asks 5 qualifying questions before recommending providers:
-
-1. **Styles** - What yoga styles do you teach?
-2. **Locations** - Where do you teach?
-3. **Experience** - How long have you been teaching?
-4. **Students** - How many students per class?
-5. **Current cover** - Do you have existing insurance?
-
-### Tools Available
-| Tool | Purpose |
-|------|---------|
-| `compare_providers` | Compare UK yoga insurance providers |
-| `explain_coverage` | Explain coverage types |
-| `get_style_requirements` | Style-specific requirements |
-| `get_provider_info` | Provider details |
-| `get_quick_quote_checklist` | Quote preparation |
-| `get_my_profile` | User's profile/preferences |
+### AI Agent Capabilities
+- [ ] Explain calculations step-by-step
+- [ ] Answer gas engineering questions
+- [ ] Provide Gas Safe compliance guidance
+- [ ] Help with fault diagnosis
+- [ ] Reference gas regulations
 
 ---
 
@@ -106,9 +45,7 @@ The agent has a zen-like personality and asks 5 qualifying questions before reco
 - React 19
 - Tailwind CSS 4
 - @copilotkit/react-core, @copilotkit/react-ui
-- @neondatabase/auth
 - @humeai/voice-react
-- @getzep/zep-cloud
 
 ### Backend (Railway)
 - Python 3.11+
@@ -116,30 +53,42 @@ The agent has a zen-like personality and asks 5 qualifying questions before reco
 - Google Gemini 2.0 Flash
 - FastAPI + Uvicorn
 
-### Database (Neon)
-- PostgreSQL with Neon Auth tables
+---
+
+## Key Formulas
+
+### Metric Calculation
+```
+Volume (m³) = End Reading - Start Reading
+Flow Rate (m³/h) = Volume × (3600 / seconds)
+Heat Input (kW gross) = Flow Rate × Calorific Value (39.5 MJ/m³) / 3.6
+Heat Input (kW net) = kW gross / 1.11
+```
+
+### Imperial Calculation
+```
+Volume (cu ft) = Test dial size (0.5, 1, 2, or 5 cu ft)
+Flow Rate (cu ft/h) = Volume × (3600 / seconds)
+Flow Rate (m³/h) = cu ft/h × 0.0283168
+Heat Input = same as metric from m³/h
+```
 
 ---
 
-## Key Components
+## Agent Personality: "Gas Safe Assistant"
 
-### PageHero (`components/PageHero.tsx`)
-Reusable hero section with HeroVoice widget:
-```tsx
-<PageHero
-  title="Hot Yoga Insurance UK"
-  titleAccent="Specialized Thermal Coverage"
-  subtitle="Comprehensive coverage..."
-  badgeText="Heated Environment Specialist"
-  badgeColor="orange"
-/>
-```
+The agent should:
+- Be professional and technically accurate
+- Reference Gas Safe regulations where appropriate
+- Explain calculations clearly
+- Use proper UK gas engineering terminology
+- Never provide advice that could be unsafe
 
-### AerialYogaHero (`components/AerialYogaHero.tsx`)
-Custom hero for aerial page with video banner.
-
-### VideoBanner (`components/VideoBanner.tsx`)
-YouTube video embed with AI chat CTA.
+### Qualifying Questions
+1. What type of appliance are you testing?
+2. Are you using a metric or imperial meter?
+3. What's the appliance rated input (from data plate)?
+4. Is this commissioning, servicing, or fault-finding?
 
 ---
 
@@ -147,32 +96,16 @@ YouTube video embed with AI chat CTA.
 
 ### Vercel (Production)
 ```env
-DATABASE_URL=postgresql://...
-AGENT_URL=https://yoga-insurance-agent-production.up.railway.app/agui/
-NEON_AUTH_BASE_URL=https://...neon.tech
+AGENT_URL=https://gas-rate-agent-production.up.railway.app/agui/
 HUME_API_KEY=...
 HUME_SECRET_KEY=...
-NEXT_PUBLIC_HUME_CONFIG_ID=8e6530df-c020-4b82-bfd3-62617a100b17
-ZEP_API_KEY=...
+NEXT_PUBLIC_HUME_CONFIG_ID=...
 ```
 
 ### Railway (Agent)
 ```env
-DATABASE_URL=postgresql://...
 GOOGLE_API_KEY=...
 ```
-
----
-
-## Hume Voice Configuration
-
-**Config ID:** 8e6530df-c020-4b82-bfd3-62617a100b17
-**CLM Endpoint:** `https://yoga-insurance-agent-production.up.railway.app/chat/completions`
-
-To use CLM (Custom Language Model):
-1. In Hume dashboard, edit your config
-2. Set Custom Language Model URL to the CLM endpoint
-3. This makes Hume voice use the same Pydantic AI brain
 
 ---
 
@@ -192,23 +125,87 @@ cd agent && railway up         # Agent manual deploy
 
 ---
 
-## SEO Keywords Covered
+## SEO Keywords to Target
 
-From Google Search Console data:
-- ✅ aerial yoga insurance
-- ✅ yoga teacher insurance (uk)
-- ✅ hot yoga insurance
-- ✅ meditation teacher insurance (NEW)
-- ✅ yoga studio insurance (NEW)
-- ✅ public liability insurance for yoga teachers (NEW)
-- ✅ yoga instructor insurance
-- ✅ yoga insurance comparison
-- ✅ cheapest yoga teacher insurance (homepage)
-- ✅ affordable yoga insurance (homepage)
+- gas rate calculator
+- gas rate calculator uk
+- heat input calculator
+- gas appliance calculator
+- gas engineer calculator
+- gas safe calculator
+- kW calculator gas
+- gas consumption calculator
+- test dial calculator
+- burner pressure calculator
 
 ---
 
-## Reference Projects
-- **esportsjobs.quest-v2** - Gamification patterns, Neon Auth
-- **copilotkit-demo** - CopilotKit integration patterns
-- **gtm-quest-v2** - Latest Neon patterns
+## Reference: V1 Calculator Logic
+
+From the original gasratecalculator.quest (in dashboard repo):
+
+```typescript
+// Metric calculation
+const volume = endReading - startReading
+const flowRateM3H = volume * (3600 / seconds)
+const grossKW = flowRateM3H * 39.5 / 3.6
+const netKW = grossKW / 1.11
+
+// Imperial calculation
+const flowRateCuFtH = dialSize * (3600 / seconds)
+const flowRateM3HFromImperial = flowRateCuFtH * 0.0283168
+// Then same kW calculation
+```
+
+---
+
+## Pages Structure
+
+| Page | URL | Purpose |
+|------|-----|---------|
+| Homepage | `/` | Calculator + AI chat |
+| Gas Bill Calculator | `/gas-bill-calculator` | Cost estimation tool |
+| Articles | `/articles` | Educational content |
+
+---
+
+## Components to Create
+
+### GasRateCalculator
+Main calculator with:
+- Mode toggle (Metric/Imperial)
+- Input fields for readings
+- Timer component
+- Results display (Gross kW, Net kW, m³/h)
+
+### PageHero
+Reusable hero with:
+- Title and subtitle
+- HeroVoice widget (Hume)
+- Gas-themed gradient (orange/amber)
+
+---
+
+## Branding
+
+### Colors
+- Primary: Orange (#F97316) - Gas flame
+- Secondary: Amber (#F59E0B)
+- Background: Slate (#1E293B)
+- Accent: White
+
+### Logo
+Flame icon with "Gas Rate Calculator" text
+
+---
+
+## Migration from V1
+
+V1 source is in git history at commit `e9471de6` in the dashboard repo:
+- `apps/gas-rate-calculator/src/app/page.tsx`
+- `apps/gas-rate-calculator/src/components/GasRateCalculator.tsx`
+
+Key files to extract:
+1. Calculator component logic
+2. Timer functionality
+3. SEO content and FAQs
