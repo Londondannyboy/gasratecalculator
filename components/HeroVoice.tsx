@@ -1,8 +1,64 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { VoiceProvider, useVoice } from '@humeai/voice-react';
 import { authClient } from '@/lib/auth/client';
+import Link from 'next/link';
+
+// Get page context from pathname
+function getPageContext(pathname: string): string {
+  if (pathname.includes('aerial')) {
+    return `The user is on the AERIAL YOGA INSURANCE page. Focus on aerial yoga topics:
+- Hammock/silk/swing equipment coverage
+- Fall injury risks (higher than standard yoga)
+- Rigging and installation liability
+- Premium typically 20-40% higher than standard
+- Not all insurers cover aerial - recommend Balens or BGI`;
+  }
+  if (pathname.includes('hot-yoga')) {
+    return `The user is on the HOT YOGA INSURANCE page. Focus on hot yoga topics:
+- Heat-related illness risks (dehydration, heat exhaustion)
+- Higher liability due to heated environment
+- Bikram-specific requirements
+- Need explicit hot yoga coverage - not all policies include it
+- Premium typically 10-20% higher than standard`;
+  }
+  if (pathname.includes('meditation')) {
+    return `The user is on the MEDITATION TEACHER INSURANCE page. Focus on:
+- Mindfulness and breathwork coverage
+- Lower physical risk than yoga
+- Psychological/emotional claim considerations
+- Often included in yoga policies
+- Good for yoga nidra, pranayama, guided meditation`;
+  }
+  if (pathname.includes('studio')) {
+    return `The user is on the YOGA STUDIO INSURANCE page. Focus on business coverage:
+- Public liability for premises
+- Employer's liability (required if you have staff)
+- Property and contents insurance
+- Business interruption cover
+- Equipment coverage`;
+  }
+  if (pathname.includes('public-liability')) {
+    return `The user is on the PUBLIC LIABILITY page. Focus on:
+- What public liability covers (injuries, property damage)
+- Typical coverage amounts (£1m-£10m)
+- Studio/venue requirements (usually £5m minimum)
+- Difference from professional indemnity`;
+  }
+  if (pathname.includes('profile')) {
+    return `The user is on their PROFILE page. Help them:
+- Complete their yoga teaching profile
+- Understand why this info helps get accurate quotes
+- Explain how their choices affect insurance needs`;
+  }
+  // Default homepage context
+  return `The user is on the HOMEPAGE. Help them:
+- Understand yoga teacher insurance basics
+- Compare UK providers (Balens, BGI, Insure4Sport)
+- Get started with a quote`;
+}
 
 function VoiceOrb() {
   const { connect, disconnect, status } = useVoice();
@@ -10,8 +66,14 @@ function VoiceOrb() {
   const { data: session } = authClient.useSession();
   const user = session?.user;
   const firstName = user?.name?.split(' ')[0] || null;
+  const pathname = usePathname();
 
   const handleToggle = useCallback(async () => {
+    // Require login
+    if (!user) {
+      return; // Should not happen as button is hidden for guests
+    }
+
     if (status.value === 'connected') {
       disconnect();
     } else {
@@ -26,46 +88,50 @@ function VoiceOrb() {
           return;
         }
 
-        // Build personalized system prompt
-        const userContext = user ? `
-## USER CONTEXT
+        // Get page-specific context
+        const pageContext = getPageContext(pathname);
+
+        // Build comprehensive system prompt
+        const systemPrompt = `## CRITICAL IDENTITY
+You are the VOICE ASSISTANT for Yoga Teacher Insurance Quest - a UK yoga teacher insurance COMPARISON WEBSITE.
+You help yoga teachers find and compare insurance policies. You are NOT an elf, NOT a fantasy character, NOT a game assistant.
+You are a helpful, knowledgeable yoga insurance advisor with a calm, supportive personality.
+
+## USER INFORMATION
 - Name: ${firstName || user.name}
 - Email: ${user.email}
 - User ID: ${user.id}
 
-IMPORTANT: Address the user by name (${firstName || user.name}) in your responses.
-When they ask "what's my name" or "who am I", tell them their name.
-` : `
-## GUEST USER
-This user is not logged in. Encourage them to sign up for personalized insurance recommendations.
-`;
+IMPORTANT: Address the user by their first name (${firstName || user.name}) in your responses.
 
-        const systemPrompt = `## YOUR ROLE
-You are the VOICE INTERFACE for Yoga Teacher Insurance Quest - a UK yoga teacher insurance comparison site.
-Help users find the right insurance for their yoga teaching practice.
+## CURRENT PAGE CONTEXT
+${pageContext}
 
-${userContext}
-
-## YOUR EXPERTISE
+## YOUR EXPERTISE (YOGA INSURANCE ONLY)
 - UK yoga teacher insurance requirements
-- Public liability vs professional indemnity insurance
-- Specialist coverage for aerial yoga, hot yoga, prenatal yoga
-- Comparing providers: Balens, BGI, Insure4Sport, Sports Coach UK
-- Coverage amounts (typically £1m-£5m)
-- Pricing (typically £50-150/year)
+- Public liability insurance (£1m-£10m coverage)
+- Professional indemnity insurance
+- Specialist coverage: aerial yoga, hot yoga, prenatal yoga
+- UK Providers: Balens, BGI, Insure4Sport, Sports Coach UK
+- Typical pricing: £50-180/year depending on style and coverage
+- Yoga Alliance requirements
 
-## CONVERSATION STYLE
-- Be warm and supportive - yoga teachers are often anxious about insurance
-- Explain insurance terms simply, avoid jargon
-- Ask clarifying questions: what yoga styles they teach, where they teach
-- Keep responses concise for voice - 2-3 sentences max
-${firstName ? `- Always address the user as ${firstName}` : ''}
+## CONVERSATION RULES
+1. ONLY discuss yoga teacher insurance topics
+2. Be warm, supportive, and calm (like a yoga teacher)
+3. Keep responses SHORT for voice (2-3 sentences max)
+4. Ask clarifying questions about their teaching (styles, locations, experience)
+5. Reference the current page context when relevant
+6. If asked about non-insurance topics, politely redirect to insurance
 
-## KEY FACTS
-- Most venues REQUIRE public liability insurance before you can teach
-- Professional indemnity covers teaching-related claims
+## KEY FACTS TO MENTION
+- Most venues REQUIRE insurance before you can teach
+- Public liability covers student injuries and property damage
+- Professional indemnity covers claims about your instruction
 - Aerial and hot yoga need SPECIALIST cover - not all policies include it
-`;
+- Always recommend getting quotes from 2-3 providers
+
+Remember: You are a yoga insurance advisor. Stay focused on insurance.`;
 
         await connect({
           auth: { type: 'accessToken', value: accessToken },
@@ -81,9 +147,31 @@ ${firstName ? `- Always address the user as ${firstName}` : ''}
         setIsPending(false);
       }
     }
-  }, [connect, disconnect, status.value, user, firstName]);
+  }, [connect, disconnect, status.value, user, firstName, pathname]);
 
   const isConnected = status.value === 'connected';
+
+  // If not logged in, show sign-in prompt
+  if (!user) {
+    return (
+      <div className="flex flex-col items-center gap-4">
+        <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-slate-600 to-slate-700 flex items-center justify-center shadow-xl">
+          <svg className="w-10 h-10 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+        </div>
+        <div className="text-center">
+          <p className="text-white font-medium text-lg">Voice Advisor</p>
+          <Link
+            href="/auth/sign-in"
+            className="text-blue-400 hover:text-blue-300 text-sm underline"
+          >
+            Sign in to use voice
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -133,10 +221,10 @@ ${firstName ? `- Always address the user as ${firstName}` : ''}
 
       <div className="text-center">
         <p className="text-white font-medium text-lg">
-          {isConnected ? 'Listening...' : isPending ? 'Connecting...' : 'Talk to our Insurance Advisor'}
+          {isConnected ? 'Listening...' : isPending ? 'Connecting...' : `Hi ${firstName}! Tap to talk`}
         </p>
         <p className="text-slate-300 text-sm">
-          {isConnected ? 'Tap to end' : 'Tap to start a conversation'}
+          {isConnected ? 'Tap to end' : 'Ask about yoga insurance'}
         </p>
       </div>
     </div>
