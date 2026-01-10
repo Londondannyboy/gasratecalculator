@@ -13,9 +13,9 @@ const serviceAdapter = new ExperimentalEmptyAdapter();
 const runtime = new CopilotRuntime({
   agents: {
     // Local development: http://localhost:8000/agui/
-    // Production: Update this to your Railway URL
-    yoga_agent: new HttpAgent({
-      url: process.env.AGENT_URL || "https://yoga-insurance-agent-production.up.railway.app/agui/"
+    // Production: Railway URL
+    gas_agent: new HttpAgent({
+      url: process.env.AGENT_URL || "https://gas-rate-agent-production.up.railway.app/agui/"
     }),
   },
 });

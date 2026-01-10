@@ -1,4 +1,5 @@
 import { GasRateCalculator } from '@/components/GasRateCalculator'
+import { HeroVoice } from '@/components/HeroVoice'
 
 const faqs = [
   {
@@ -70,6 +71,11 @@ export default function HomePage() {
             Calculate gas appliance heat input in kW from meter readings or test dial measurements.
             Essential tool for commissioning, servicing, and fault-finding.
           </p>
+
+          {/* Voice Assistant */}
+          <div className="mb-8">
+            <HeroVoice />
+          </div>
 
           <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-400">
             <div className="flex items-center gap-2">
