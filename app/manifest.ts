@@ -2,13 +2,13 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Yoga Teacher Insurance UK',
-    short_name: 'Yoga Insurance',
-    description: 'Compare yoga teacher insurance quotes from UK specialist providers',
+    name: 'Gas Rate Calculator UK',
+    short_name: 'Gas Rate Calc',
+    description: 'Free gas rate calculator for UK Gas Safe registered engineers',
     start_url: '/',
     display: 'standalone',
     background_color: '#0f172a',
-    theme_color: '#7c3aed',
+    theme_color: '#f97316',
     icons: [
       {
         src: '/icon.svg',

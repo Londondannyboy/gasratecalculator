@@ -19,22 +19,26 @@ The Gas Rate Calculator helps UK Gas Safe registered engineers:
 
 ---
 
-## V2 Features (To Build)
+## V2 Features
 
-### Core Calculator
+### Core Calculator - COMPLETE
 - [x] Metric mode: Start/end meter readings + time
 - [x] Imperial mode: Test dial size + revolution time
 - [x] Built-in stopwatch timer
 - [x] Gross/Net kW output
-- [ ] Voice-enabled calculations (Hume EVI)
-- [ ] AI assistant for gas engineering questions (CopilotKit)
+- [x] Voice-enabled calculations (Hume EVI)
+- [x] AI assistant for gas engineering questions (CopilotKit)
 
-### AI Agent Capabilities
-- [ ] Explain calculations step-by-step
-- [ ] Answer gas engineering questions
-- [ ] Provide Gas Safe compliance guidance
-- [ ] Help with fault diagnosis
-- [ ] Reference gas regulations
+### AI Agent Capabilities - COMPLETE
+- [x] Explain calculations step-by-step
+- [x] Answer gas engineering questions
+- [x] Provide Gas Safe compliance guidance
+- [x] Help with fault diagnosis
+- [x] Reference gas regulations
+
+### Additional Pages - IN PROGRESS
+- [ ] /gas-bill-calculator - Monthly bill estimation
+- [ ] /gas-cost-calculator - Appliance running costs
 
 ---
 
@@ -161,11 +165,15 @@ const flowRateM3HFromImperial = flowRateCuFtH * 0.0283168
 
 ## Pages Structure
 
-| Page | URL | Purpose |
-|------|-----|---------|
-| Homepage | `/` | Calculator + AI chat |
-| Gas Bill Calculator | `/gas-bill-calculator` | Cost estimation tool |
-| Articles | `/articles` | Educational content |
+| Page | URL | Status |
+|------|-----|--------|
+| Homepage | `/` | Done |
+| Gas Bill Calculator | `/gas-bill-calculator` | Pending |
+| Gas Cost Calculator | `/gas-cost-calculator` | Pending |
+| Articles | `/articles` | Done |
+| Contact | `/contact` | Done |
+| Privacy | `/privacy` | Done |
+| Terms | `/terms` | Done |
 
 ---
 

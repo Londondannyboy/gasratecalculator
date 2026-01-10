@@ -1,135 +1,87 @@
-# Yoga Teacher Insurance Quest - Implementation Plan
+# Gas Rate Calculator Quest V2 - Implementation Plan
 
 ## Project Goal
-Add AI-powered insurance advisor to yogateacherinsurance.quest using:
+Create v2 of gasratecalculator.quest using:
 - CopilotKit + Pydantic AI (chat agent)
-- Neon Auth (user management)
 - Hume EVI (voice agent)
-- Zep (memory persistence)
+- Next.js 15 with App Router
+- Railway for Python agent deployment
 
 ---
 
 ## Implementation Progress (Updated January 2025)
 
-### Phase 1: CopilotKit + Pydantic AI - COMPLETE
+### Phase 1: Clone & Transform - COMPLETE
 
 | Task | Status | Notes |
 |------|--------|-------|
-| Install frontend deps | Done | @copilotkit/react-core, @copilotkit/react-ui, @ag-ui/client |
-| Create agent folder | Done | /agent/src/agent.py |
-| Build basic agent | Done | 6 tools, Gemini 2.0 Flash model |
-| Add CopilotKit to frontend | Done | providers.tsx with CopilotSidebar |
-| Create API route | Done | /api/copilotkit/route.ts |
-| Deploy to Railway | Done | yoga-insurance-agent-production.up.railway.app |
+| Clone yogateacherinsurance.quest template | Done | Used as base structure |
+| Update package.json | Done | gas-rate-calculator-quest v2.0.0 |
+| Remove yoga pages | Done | Deleted 18+ yoga-specific pages |
+| Create GasRateCalculator component | Done | Metric/Imperial modes, timer |
+| Rewrite homepage | Done | Calculator, FAQs, How It Works |
+| Update Navigation | Done | Orange/amber gas branding |
+| Update Footer | Done | Calculator links, Gas Safe links |
+
+### Phase 2: CopilotKit + Pydantic AI - COMPLETE
+
+| Task | Status | Notes |
+|------|--------|-------|
+| Update providers.tsx | Done | gas_agent, "Gas Safe Assistant" |
+| Update API route | Done | Points to gas_agent |
+| Create agent.py | Done | 5 gas-specific tools |
+| Deploy to Railway | Done | gas-rate-agent-production.up.railway.app |
 
 **Agent Tools Implemented:**
-- `compare_providers(yoga_style)` - Compare UK providers
-- `explain_coverage(coverage_type)` - Explain coverage types
-- `get_style_requirements(yoga_style)` - Style-specific requirements
-- `get_provider_info(provider_name)` - Provider details
-- `get_quick_quote_checklist()` - Quote preparation
-- `get_my_profile()` - User profile retrieval
+- `get_appliance_info(appliance_type)` - Boiler, fire, hob specs
+- `diagnose_issue(reading_type, deviation)` - High/low troubleshooting
+- `get_regulations(topic)` - Gas Safe, IGEM, tolerance info
+- `explain_calculation(method)` - Step-by-step formulas
+- `calculate_gas_rate(...)` - Compute kW from inputs
 
-### Phase 2: Neon Auth - COMPLETE
-
-| Task | Status | Notes |
-|------|--------|-------|
-| Enable Neon Auth | Done | NEON_AUTH_BASE_URL configured |
-| Install @neondatabase/auth | Done | Required --legacy-peer-deps |
-| Create auth files | Done | lib/auth/client.ts, lib/auth/server.ts |
-| Auth API handler | Done | /api/auth/[...path]/route.ts |
-| Auth pages | Done | /auth/sign-in, sign-up, etc. |
-| UserButton in nav | Done | With size="icon" prop |
-| Profile page | Done | /profile with yoga styles, locations |
-
-**Issues Fixed:**
-- Peer dependency conflict with Next.js 16 requirement
-- TypeScript errors with authClient prop (cast as any)
-- UserButton size prop warning
-
-### Phase 3: Hume Voice - COMPLETE (with issues)
+### Phase 3: Hume Voice - COMPLETE
 
 | Task | Status | Notes |
 |------|--------|-------|
 | Install @humeai/voice-react | Done | |
-| Token endpoint | Done | Fixed URL to oauth2-cc/token |
-| Voice widget | Done | HeroVoice.tsx with pulsating orb |
-| User context in prompt | Done | Passes name, email to system prompt |
-| Add to hero section | Done | Centered below hero text |
+| Create HeroVoice component | Done | Pulsating orb, no auth required |
+| Gas engineering system prompt | Done | Professional, safety-focused |
+| Add to homepage | Done | Centered in hero section |
 
-**Issues:**
-- Voice orb click not responding (needs debugging)
-- CLM endpoint not yet implemented (Hume uses its own LLM)
-
-### Phase 4: Zep Memory - PARTIAL
+### Phase 4: Content & SEO - IN PROGRESS
 
 | Task | Status | Notes |
 |------|--------|-------|
-| Install @getzep/zep-cloud | Done | |
-| Create API route | Done | /api/zep/route.ts |
-| Profile saves to Zep | Done | On save, adds facts to graph |
-| Configure ZEP_API_KEY | Pending | Need to add to Vercel |
+| Update robots.ts | Done | gasratecalculator.quest domain |
+| Update sitemap.ts | Done | Gas-focused URLs |
+| Update privacy/terms/contact | Done | Gas Rate Calculator branding |
+| Update manifest.ts | Done | Orange theme color |
+| Update icons | Done | Flame icon, orange gradient |
+| Create /gas-bill-calculator | Pending | Cost estimation tool |
+| Create /gas-cost-calculator | Pending | Usage cost calculator |
 
 ---
 
-## Known Issues & Debugging
+## Environment Variables
 
-### 1. CopilotKit Sidebar Not Clicking
-**Symptoms:** Clicking the chat icon does nothing
-**Possible Causes:**
-- JavaScript error preventing event handlers
-- z-index conflict (CSS override added)
-- useCoAgent hook was causing errors (removed)
+### Vercel (Production)
+```env
+AGENT_URL=https://gas-rate-agent-production.up.railway.app/agui/
+DATABASE_URL=...
+NEON_AUTH_BASE_URL=...
+HUME_API_KEY=...
+HUME_SECRET_KEY=...
+NEXT_PUBLIC_HUME_CONFIG_ID=...
+```
 
-**Debug Steps:**
-1. Open browser console, look for errors
-2. Check Network tab for failed requests to /api/copilotkit
-3. Verify AGENT_URL env var is set correctly
-
-### 2. Voice Orb Not Clicking
-**Symptoms:** Clicking voice orb does nothing
-**Possible Causes:**
-- NEXT_PUBLIC_HUME_CONFIG_ID not set
-- Token endpoint returning error
-- VoiceProvider not initialized properly
-
-**Debug Steps:**
-1. Check browser console for errors
-2. Check Network tab for /api/hume-token requests
-3. Verify Hume env vars are set
-
-### 3. Agent Doesn't Know User Name
-**Symptoms:** Agent says "Hi" but doesn't use user's name when asked
-**Possible Causes:**
-- instructions prop not reaching agent
-- @agent.instructions decorator not working
-- State not being synced via useCoAgent (was removed)
-
-**Debug Steps:**
-1. Check agent logs on Railway for received instructions
-2. Test with curl directly to agent endpoint
-3. Re-add useCoAgent for proper state sync
+### Railway (Agent)
+```env
+GOOGLE_API_KEY=...
+```
 
 ---
 
-## Environment Variables Checklist
-
-### Vercel
-- [x] DATABASE_URL
-- [x] NEON_AUTH_BASE_URL
-- [x] HUME_API_KEY
-- [x] HUME_SECRET_KEY
-- [x] NEXT_PUBLIC_HUME_CONFIG_ID (8e6530df-c020-4b82-bfd3-62617a100b17)
-- [ ] ZEP_API_KEY (needs to be added)
-- [ ] AGENT_URL (verify set to Railway URL)
-
-### Railway
-- [x] DATABASE_URL
-- [x] GOOGLE_API_KEY
-
----
-
-## Architecture Diagram
+## Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -140,32 +92,23 @@ Add AI-powered insurance advisor to yogateacherinsurance.quest using:
 │   │   VERCEL     │                    │   RAILWAY    │      │
 │   │  (Next.js)   │                    │  (Python)    │      │
 │   │              │                    │              │      │
-│   │ yogateacher  │ ─── AG-UI ──────► │  Pydantic    │      │
-│   │ insurance    │                    │  AI Agent    │      │
+│   │ gasrate      │ ─── AG-UI ──────► │  Pydantic    │      │
+│   │ calculator   │                    │  AI Agent    │      │
 │   │ .quest       │                    │              │      │
-│   │              │                    │ • 6 Tools    │      │
-│   │ • Frontend   │                    │ • @agent.    │      │
-│   │ • CopilotKit │                    │   instructions│     │
-│   │ • Neon Auth  │                    │              │      │
+│   │              │                    │ • 5 Tools    │      │
+│   │ • Frontend   │                    │ • Gemini 2.0 │      │
+│   │ • CopilotKit │                    │   Flash      │      │
 │   │ • HeroVoice  │                    │              │      │
 │   └──────────────┘                    └──────────────┘      │
 │          │                                                   │
 │          │                                                   │
 │          ▼                                                   │
-│   ┌──────────────┐         ┌──────────────┐                 │
-│   │   HUME AI    │         │     ZEP      │                 │
-│   │   (Voice)    │         │   (Memory)   │                 │
-│   │              │         │              │                 │
-│   │ Config:      │         │ User facts   │                 │
-│   │ 8e6530df...  │         │ stored in    │                 │
-│   └──────────────┘         │ knowledge    │                 │
-│                            │ graph        │                 │
-│   ┌──────────────┐         └──────────────┘                 │
-│   │    NEON      │                                          │
-│   │  (Database)  │                                          │
+│   ┌──────────────┐                                          │
+│   │   HUME AI    │                                          │
+│   │   (Voice)    │                                          │
 │   │              │                                          │
-│   │ • Auth tables│                                          │
-│   │ • User data  │                                          │
+│   │ System prompt│                                          │
+│   │ for gas eng  │                                          │
 │   └──────────────┘                                          │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
@@ -173,45 +116,57 @@ Add AI-powered insurance advisor to yogateacherinsurance.quest using:
 
 ---
 
-## Next Session Priorities
+## Pages Structure
 
-### Priority 1: Fix Click Issues
-Debug why CopilotKit sidebar and voice orb don't respond to clicks.
-- Check browser console for JS errors
-- Verify all env vars are set
-- Test with local dev server
-
-### Priority 2: Configure Zep
-Add ZEP_API_KEY to Vercel and test memory persistence.
-
-### Priority 3: User Context
-Ensure agent properly receives and uses user's name:
-- Test instructions prop flow
-- Consider re-adding useCoAgent with proper error handling
-- Verify @agent.instructions decorator works
-
-### Priority 4: CLM Endpoint
-Add /chat/completions endpoint to agent so Hume uses same brain:
-- OpenAI-compatible SSE streaming
-- Route through same agent logic
-- Configure in Hume dashboard
+| Page | URL | Status |
+|------|-----|--------|
+| Homepage | `/` | Done |
+| Gas Bill Calculator | `/gas-bill-calculator` | Pending |
+| Gas Cost Calculator | `/gas-cost-calculator` | Pending |
+| Articles | `/articles` | Done |
+| Contact | `/contact` | Done |
+| Privacy | `/privacy` | Done |
+| Terms | `/terms` | Done |
 
 ---
 
-## Files Modified This Session
+## Next Steps
 
-1. `components/providers.tsx` - Added then removed useCoAgent
-2. `components/HeroVoice.tsx` - New voice orb component
-3. `components/Navigation.tsx` - Profile link, UserButton size prop
-4. `app/page.tsx` - Added HeroVoice to hero section
-5. `app/profile/page.tsx` - New profile settings page
-6. `app/api/zep/route.ts` - New Zep API route
-7. `app/globals.css` - z-index overrides for CopilotKit
-8. `agent/src/agent.py` - Added @agent.instructions, get_my_profile tool
+1. Create `/gas-bill-calculator` page - estimate monthly gas bills
+2. Create `/gas-cost-calculator` page - calculate appliance running costs
+3. Add cookie consent component
+4. Add disclaimer banner
+5. Test voice assistant functionality
+6. Run full deployment
+
+---
+
+## Files Modified
+
+### Frontend
+- `package.json` - Updated name and version
+- `components/GasRateCalculator.tsx` - Main calculator
+- `components/Navigation.tsx` - Gas branding
+- `components/Footer.tsx` - Calculator links
+- `components/providers.tsx` - CopilotKit setup
+- `components/HeroVoice.tsx` - Voice widget
+- `app/page.tsx` - Homepage
+- `app/robots.ts` - SEO
+- `app/sitemap.ts` - SEO
+- `app/manifest.ts` - PWA
+- `app/icon.tsx` - Favicon
+- `app/apple-icon.tsx` - Apple icon
+- `app/contact/page.tsx` - Contact page
+- `app/privacy/page.tsx` - Privacy policy
+- `app/terms/page.tsx` - Terms of service
+- `app/articles/layout.tsx` - Articles metadata
+
+### Agent
+- `agent/src/agent.py` - Gas engineering agent
+- `agent/pyproject.toml` - Dependencies
 
 ---
 
 ## Reference
 - See CLAUDE.md for detailed documentation
-- copilotkit-demo project for working patterns
-- Zep MCP server available for memory queries
+- V1 source in dashboard repo at commit `e9471de6`

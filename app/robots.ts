@@ -1,14 +1,14 @@
 import { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://yogateacherinsurance.quest'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://gasratecalculator.quest'
 
   return {
     rules: [
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/'],
+        disallow: ['/api/', '/auth/'],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,

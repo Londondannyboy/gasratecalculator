@@ -13,27 +13,28 @@ export function Footer() {
             </p>
           </div>
           <div>
-            <h4 className="text-white font-semibold mb-4">Calculator</h4>
+            <h4 className="text-white font-semibold mb-4">Calculators</h4>
             <ul className="space-y-2 text-sm text-slate-400">
-              <li><a href="#calculator" className="hover:text-white transition-colors">Gas Rate Calculator</a></li>
-              <li><a href="#how-it-works" className="hover:text-white transition-colors">How It Works</a></li>
-              <li><a href="#faq" className="hover:text-white transition-colors">FAQ</a></li>
+              <li><Link href="/#calculator" className="hover:text-orange-400 transition-colors">Gas Rate Calculator</Link></li>
+              <li><Link href="/gas-bill-calculator" className="hover:text-orange-400 transition-colors">Gas Bill Calculator</Link></li>
+              <li><Link href="/gas-cost-calculator" className="hover:text-orange-400 transition-colors">Gas Cost Calculator</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="text-white font-semibold mb-4">Resources</h4>
             <ul className="space-y-2 text-sm text-slate-400">
-              <li><Link href="/articles" className="hover:text-white transition-colors">Guides</Link></li>
-              <li><a href="https://www.gassaferegister.co.uk/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Gas Safe Register</a></li>
-              <li><a href="https://www.hse.gov.uk/gas/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">HSE Gas Safety</a></li>
+              <li><Link href="/articles" className="hover:text-orange-400 transition-colors">Guides</Link></li>
+              <li><a href="https://www.gassaferegister.co.uk/" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition-colors">Gas Safe Register</a></li>
+              <li><a href="https://www.hse.gov.uk/gas/" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition-colors">HSE Gas Safety</a></li>
+              <li><a href="https://www.citizensadvice.org.uk/consumer/energy/" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition-colors">Energy Advice</a></li>
             </ul>
           </div>
           <div>
             <h4 className="text-white font-semibold mb-4">Legal</h4>
             <ul className="space-y-2 text-sm text-slate-400">
-              <li><Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
-              <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
+              <li><Link href="/contact" className="hover:text-orange-400 transition-colors">Contact Us</Link></li>
+              <li><Link href="/privacy" className="hover:text-orange-400 transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="hover:text-orange-400 transition-colors">Terms of Service</Link></li>
             </ul>
           </div>
         </div>
