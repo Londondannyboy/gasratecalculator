@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import { LPGTankIllustration } from '@/components/illustrations'
 
 // LPG calorific values are significantly higher than natural gas
 const LPG_TYPES = {
@@ -205,12 +206,24 @@ export default function LpgGasRateCalculatorPage() {
             registered engineers working on LPG installations.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-400">
+          <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-400 mb-8">
             <div className="flex items-center gap-2 px-3 py-1 bg-slate-800/50 rounded-full">
               <span className="text-blue-400">Propane:</span> 93.2 MJ/m³
             </div>
             <div className="flex items-center gap-2 px-3 py-1 bg-slate-800/50 rounded-full">
               <span className="text-cyan-400">Butane:</span> 121.8 MJ/m³
+            </div>
+          </div>
+
+          {/* LPG Tank Illustrations */}
+          <div className="flex justify-center gap-8">
+            <div className="text-center">
+              <LPGTankIllustration type="propane" className="w-20 h-auto mx-auto" />
+              <p className="text-xs text-blue-400 mt-2">Propane</p>
+            </div>
+            <div className="text-center">
+              <LPGTankIllustration type="butane" className="w-20 h-auto mx-auto" />
+              <p className="text-xs text-cyan-400 mt-2">Butane</p>
             </div>
           </div>
         </div>

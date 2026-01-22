@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import { TestDialIllustration } from '@/components/illustrations'
 
 const CALORIFIC_VALUE = 39.5 // MJ/m³ (typical UK natural gas)
 const CORRECTION_FACTOR = 1.02264 // Volume correction factor
@@ -176,9 +177,12 @@ export default function ImperialGasRateCalculatorPage() {
             Essential for <a href="https://www.gassaferegister.co.uk/" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">Gas Safe</a> registered engineers working with older meter installations.
           </p>
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-slate-400 mb-6">
             Supports test dial sizes: 0.5, 1, 2, and 5 cubic feet
           </p>
+
+          {/* Test Dial Illustration */}
+          <TestDialIllustration className="w-32 h-auto mx-auto" />
         </div>
       </section>
 

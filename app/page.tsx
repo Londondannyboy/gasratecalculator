@@ -1,5 +1,6 @@
 import { GasRateCalculator } from '@/components/GasRateCalculator'
 import { HeroVoice } from '@/components/HeroVoice'
+import { GasMeterIllustration, TestDialIllustration } from '@/components/illustrations'
 import Link from 'next/link'
 
 const faqs = [
@@ -177,6 +178,24 @@ export default function HomePage() {
           <h2 className="text-3xl font-bold text-white text-center mb-12">
             How Gas Rate Calculation Works
           </h2>
+
+          {/* Meter Illustrations */}
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50">
+              <h3 className="text-lg font-semibold text-white mb-4 text-center">Metric Gas Meter</h3>
+              <GasMeterIllustration className="max-w-[200px] mx-auto mb-4" />
+              <p className="text-sm text-slate-400 text-center">
+                Read the meter in cubic metres (m³) before and after the test
+              </p>
+            </div>
+            <div className="p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50">
+              <h3 className="text-lg font-semibold text-white mb-4 text-center">Imperial Test Dial</h3>
+              <TestDialIllustration className="max-w-[160px] mx-auto mb-4" />
+              <p className="text-sm text-slate-400 text-center">
+                Time one complete revolution of the test dial (cu ft)
+              </p>
+            </div>
+          </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             <div className="p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50">
