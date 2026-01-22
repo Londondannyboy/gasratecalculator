@@ -16,6 +16,8 @@ export function Footer() {
             <h4 className="text-white font-semibold mb-4">Calculators</h4>
             <ul className="space-y-2 text-sm text-slate-400">
               <li><Link href="/#calculator" className="hover:text-orange-400 transition-colors">Gas Rate Calculator</Link></li>
+              <li><Link href="/imperial-gas-rate-calculator" className="hover:text-orange-400 transition-colors">Imperial Gas Rate Calculator</Link></li>
+              <li><Link href="/lpg-gas-rate-calculator" className="hover:text-orange-400 transition-colors">LPG Gas Rate Calculator</Link></li>
               <li><Link href="/gas-bill-calculator" className="hover:text-orange-400 transition-colors">Gas Bill Calculator</Link></li>
               <li><Link href="/gas-cost-calculator" className="hover:text-orange-400 transition-colors">Gas Cost Calculator</Link></li>
             </ul>
@@ -34,6 +36,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm text-slate-400">
               <li><Link href="/contact" className="hover:text-orange-400 transition-colors">Contact Us</Link></li>
               <li><Link href="/privacy" className="hover:text-orange-400 transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/cookies" className="hover:text-orange-400 transition-colors">Cookie & Data Policy</Link></li>
               <li><Link href="/terms" className="hover:text-orange-400 transition-colors">Terms of Service</Link></li>
             </ul>
           </div>

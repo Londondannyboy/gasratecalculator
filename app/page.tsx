@@ -1,5 +1,6 @@
 import { GasRateCalculator } from '@/components/GasRateCalculator'
 import { HeroVoice } from '@/components/HeroVoice'
+import Link from 'next/link'
 
 const faqs = [
   {
@@ -41,12 +42,75 @@ const faqJsonLd = {
   }))
 }
 
+const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to Calculate Gas Rate (Heat Input) for Gas Appliances",
+  description: "Step-by-step guide to calculating gas appliance heat input in kW using meter readings or a test dial. Essential for Gas Safe engineers during commissioning and servicing.",
+  totalTime: "PT5M",
+  estimatedCost: {
+    "@type": "MonetaryAmount",
+    currency: "GBP",
+    value: "0"
+  },
+  tool: [
+    {
+      "@type": "HowToTool",
+      name: "Gas meter or test dial gauge"
+    },
+    {
+      "@type": "HowToTool",
+      name: "Stopwatch or timer"
+    },
+    {
+      "@type": "HowToTool",
+      name: "Gas rate calculator"
+    }
+  ],
+  step: [
+    {
+      "@type": "HowToStep",
+      name: "Turn off other gas appliances",
+      text: "Ensure all other gas appliances in the property are turned off to get an accurate reading for the appliance you're testing."
+    },
+    {
+      "@type": "HowToStep",
+      name: "Record the starting meter reading",
+      text: "For metric meters, note the meter reading including all decimal places (e.g., 1234.567 m³). For imperial meters, identify your test dial size."
+    },
+    {
+      "@type": "HowToStep",
+      name: "Turn on the appliance at full rate",
+      text: "Turn on the gas appliance you want to test at its maximum burner setting to measure full heat input."
+    },
+    {
+      "@type": "HowToStep",
+      name: "Time the gas consumption",
+      text: "For metric: run the test for at least 2 minutes and record the time in seconds. For imperial: time one complete revolution of the test dial."
+    },
+    {
+      "@type": "HowToStep",
+      name: "Record the ending meter reading",
+      text: "For metric meters, note the final reading. For imperial meters, you've already got the data needed from timing the dial."
+    },
+    {
+      "@type": "HowToStep",
+      name: "Calculate the heat input",
+      text: "Enter your readings into the gas rate calculator to get the Gross kW and Net kW values. Compare the Net kW to the appliance data plate rating."
+    }
+  ]
+}
+
 export default function HomePage() {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
       />
 
       {/* Hero Section */}
@@ -198,15 +262,80 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Related Calculators Section */}
       <section className="py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-white text-center mb-4">
+            More Gas Calculators
+          </h2>
+          <p className="text-slate-400 text-center mb-8">
+            Explore our range of free gas calculation tools for UK gas engineers and homeowners.
+          </p>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link
+              href="/imperial-gas-rate-calculator"
+              className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group"
+            >
+              <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-orange-400">
+                Imperial Gas Rate Calculator
+              </h3>
+              <p className="text-slate-400 text-sm">
+                Calculate heat input from test dial measurements on imperial (cu ft) meters.
+              </p>
+            </Link>
+
+            <Link
+              href="/lpg-gas-rate-calculator"
+              className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group"
+            >
+              <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-orange-400">
+                LPG Gas Rate Calculator
+              </h3>
+              <p className="text-slate-400 text-sm">
+                Calculate heat input for propane and butane LPG appliances with correct CV values.
+              </p>
+            </Link>
+
+            <Link
+              href="/gas-bill-calculator"
+              className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group"
+            >
+              <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-orange-400">
+                Gas Bill Calculator
+              </h3>
+              <p className="text-slate-400 text-sm">
+                Estimate your UK gas bill based on usage, unit rates and standing charges.
+              </p>
+            </Link>
+
+            <Link
+              href="/gas-cost-calculator"
+              className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group"
+            >
+              <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-orange-400">
+                Gas Cost Calculator
+              </h3>
+              <p className="text-slate-400 text-sm">
+                Calculate running costs for gas appliances based on heat input and usage.
+              </p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 px-4 bg-slate-900/50">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-white mb-4">
             Need Help With Gas Calculations?
           </h2>
           <p className="text-slate-400 mb-8">
-            This calculator is designed to assist Gas Safe registered engineers.
-            Always follow official Gas Safe procedures and regulations.
+            This gas rate calculator is designed to assist{' '}
+            <a href="https://www.gassaferegister.co.uk/" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">
+              Gas Safe
+            </a>{' '}
+            registered engineers. Always follow official Gas Safe procedures and regulations.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
@@ -221,7 +350,7 @@ export default function HomePage() {
               href="#calculator"
               className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-xl transition-colors"
             >
-              Use Calculator
+              Use Gas Rate Calculator
             </a>
           </div>
         </div>

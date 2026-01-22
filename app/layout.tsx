@@ -14,22 +14,29 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Gas Rate Calculator UK | Free Heat Input Calculator for Gas Engineers",
+    default: "Gas Rate Calculator UK | Free Heat Input Calculator for Gas Engineers 2025",
     template: "%s | Gas Rate Calculator UK"
   },
-  description: "Free UK gas rate calculator for gas engineers. Calculate gas appliance heat input in kW from meter readings or test dial. Essential tool for Gas Safe registered engineers.",
+  description: "Free UK gas rate calculator for Gas Safe engineers. Calculate gas appliance heat input in kW from meter readings or test dial. Supports metric (m³) and imperial (cu ft) measurements. Essential for commissioning, servicing and fault-finding.",
   keywords: [
     "gas rate calculator",
     "gas rate calculator uk",
+    "gas rate calc",
     "heat input calculator",
     "gas appliance calculator",
     "gas engineer calculator",
     "gas safe calculator",
-    "kW calculator",
+    "kW calculator gas",
     "gas consumption calculator",
     "test dial calculator",
     "burner pressure calculator",
-    "gas flow rate calculator"
+    "gas flow rate calculator",
+    "how to calculate gas rate",
+    "gas rate formula",
+    "gas rate calculation",
+    "imperial gas rate calculator",
+    "metric gas rate calculator",
+    "free gas rate calculator"
   ],
   authors: [{ name: "Gas Rate Calculator UK" }],
   creator: "Gas Rate Calculator UK",
@@ -43,13 +50,13 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: "https://gasratecalculator.quest",
     siteName: "Gas Rate Calculator UK",
-    title: "Gas Rate Calculator UK | Free Heat Input Calculator",
-    description: "Free UK gas rate calculator for gas engineers. Calculate appliance heat input in kW from meter readings or test dial.",
+    title: "Gas Rate Calculator UK | Free Heat Input Calculator for Gas Engineers",
+    description: "Free UK gas rate calculator for Gas Safe engineers. Calculate heat input in kW from meter readings or test dial. Supports metric and imperial measurements.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Gas Rate Calculator UK | Free Heat Input Calculator",
-    description: "Free gas rate calculator for UK gas engineers. Calculate heat input in kW.",
+    description: "Free UK gas rate calculator. Calculate appliance heat input in kW. Metric & imperial modes. Essential tool for Gas Safe engineers.",
   },
   robots: {
     index: true,
@@ -100,8 +107,8 @@ const softwareJsonLd = {
   "@type": "SoftwareApplication",
   "@id": "https://gasratecalculator.quest/#app",
   name: "Gas Rate Calculator UK",
-  alternateName: "Heat Input Calculator",
-  description: "Free online gas rate calculator for UK gas engineers. Calculate gas appliance heat input in kW from meter readings or test dial. Supports metric and imperial measurements.",
+  alternateName: ["Heat Input Calculator", "Gas Calc", "kW Calculator"],
+  description: "Free online gas rate calculator for UK Gas Safe engineers. Calculate gas appliance heat input in kW from meter readings or test dial. Supports metric (m³), imperial (cu ft), and LPG (propane/butane) calculations.",
   applicationCategory: "UtilityApplication",
   operatingSystem: "Any",
   offers: {
@@ -110,10 +117,15 @@ const softwareJsonLd = {
     priceCurrency: "GBP"
   },
   featureList: [
-    "Metric (m³) and Imperial (cu ft) modes",
+    "Metric (m³) gas rate calculation",
+    "Imperial (cu ft) test dial calculator",
+    "LPG propane and butane calculator",
     "Built-in stopwatch timer",
     "Gross and Net kW calculation",
-    "Gas Safe compliant formulas"
+    "Gas bill estimator",
+    "Appliance running cost calculator",
+    "Gas Safe compliant formulas",
+    "UK Energy Price Cap rates"
   ]
 }
 

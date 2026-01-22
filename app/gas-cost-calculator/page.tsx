@@ -15,15 +15,27 @@ const appliances = [
 const faqs = [
   {
     question: "How do I calculate gas appliance running costs?",
-    answer: "Multiply the appliance's kW rating by the number of hours used, then multiply by your unit rate (p/kWh). For example, a 4kW gas fire used for 3 hours at 6.24p/kWh costs: 4 x 3 x 6.24 = 74.88p."
+    answer: "Multiply the appliance's kW rating by the number of hours used, then multiply by your unit rate (p/kWh). For example, a 4kW gas fire used for 3 hours at 6.24p/kWh costs: 4 x 3 x 6.24 = 74.88p. This calculator automates this process for you."
   },
   {
-    question: "What is a kW rating?",
-    answer: "The kW (kilowatt) rating shows how much energy an appliance uses per hour. A 4kW gas fire uses 4 kilowatt-hours (kWh) of gas for every hour it's running at full power."
+    question: "What is a kW rating and where do I find it?",
+    answer: "The kW (kilowatt) rating shows the power consumption of an appliance. You can find it on the appliance's data plate (usually a metal label), in the user manual, or by searching the model number online. A 4kW gas fire uses 4 kilowatt-hours (kWh) of gas for every hour at full power."
   },
   {
-    question: "Why does my boiler cost vary?",
-    answer: "Boilers cycle on and off based on demand - they don't run constantly. A combi boiler might only fire for 5-10 minutes per hour for hot water, or longer periods when heating the home. Actual usage depends on insulation, thermostat settings, and outdoor temperature."
+    question: "Why does my boiler running cost vary so much?",
+    answer: "Boilers cycle on and off based on demand - they don't run constantly at full power. A combi boiler might only fire for 5-10 minutes per hour for hot water, or longer periods when heating the home. Actual costs depend on insulation, thermostat settings, outdoor temperature, and boiler efficiency. Modern condensing boilers are more efficient than older models."
+  },
+  {
+    question: "How much does it cost to run a gas fire per hour?",
+    answer: "At January 2025 price cap rates (6.24p/kWh), a typical 4kW gas fire costs approximately 25p per hour to run. A larger 6kW fire costs around 37p per hour. These costs assume the fire runs continuously at full power - actual costs may be lower with thermostatic controls."
+  },
+  {
+    question: "How much does it cost to run a gas hob?",
+    answer: "A single gas ring uses about 2kW, costing approximately 12p per hour. A full 4-ring hob running all burners at maximum would use about 8kW, costing around 50p per hour. In practice, most cooking uses 1-2 rings at varying power, so typical cooking costs 5-20p per meal."
+  },
+  {
+    question: "Is gas heating cheaper than electric?",
+    answer: "Currently, yes. At January 2025 rates, gas costs around 6.24p/kWh while electricity costs around 24.50p/kWh - nearly 4 times more expensive per unit. However, electric heat pumps can be 3-4x more efficient than gas boilers, potentially making them cheaper to run despite higher unit rates."
   },
 ]
 
@@ -87,19 +99,32 @@ export default function GasCostCalculatorPage() {
         <div className="relative max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/10 border border-orange-500/20 rounded-full text-orange-400 text-sm mb-6">
             <span className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" />
-            Free Gas Cost Calculator
+            Free Gas Cost Calculator - Updated January 2025
           </div>
 
           <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
-            Gas Cost{' '}
+            UK Gas Appliance{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-400">
-              Calculator UK
+              Cost Calculator
             </span>
           </h1>
 
-          <p className="text-lg text-slate-300 max-w-2xl mx-auto">
-            Calculate the running cost of any gas appliance.
-            Find out how much it costs to run your boiler, gas fire, or hob.
+          <p className="text-lg text-slate-300 max-w-2xl mx-auto mb-4">
+            Calculate the <strong>running cost</strong> of any gas appliance - boilers, gas fires, hobs and more.
+            Uses current{' '}
+            <a
+              href="https://www.ofgem.gov.uk/information-for-household-consumers/energy-price-cap"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-orange-400 hover:text-orange-300 underline"
+            >
+              Ofgem Energy Price Cap
+            </a>{' '}
+            rates.
+          </p>
+
+          <p className="text-sm text-slate-400 max-w-xl mx-auto">
+            January 2025 price cap rate: <strong>6.24p/kWh</strong>
           </p>
         </div>
       </section>
@@ -225,28 +250,130 @@ export default function GasCostCalculatorPage() {
           </div>
 
           {/* Related Links */}
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link
-              href="/#calculator"
-              className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-xl transition-colors"
-            >
-              Gas Rate Calculator
-            </Link>
-            <Link
-              href="/gas-bill-calculator"
-              className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-xl transition-colors"
-            >
-              Gas Bill Calculator
-            </Link>
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold text-white mb-4 text-center">Related Gas Calculators</h3>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link
+                href="/"
+                className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-xl transition-colors"
+              >
+                Gas Rate Calculator
+              </Link>
+              <Link
+                href="/gas-bill-calculator"
+                className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-xl transition-colors"
+              >
+                Gas Bill Calculator
+              </Link>
+              <Link
+                href="/imperial-gas-rate-calculator"
+                className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-xl transition-colors"
+              >
+                Imperial Gas Rate Calculator
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Typical Running Costs Section */}
+      <section className="py-12 px-4">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-white mb-8 text-center">
+            Typical UK Gas Appliance Running Costs
+          </h2>
+
+          <div className="overflow-x-auto mb-8">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-slate-400 border-b border-slate-700">
+                  <th className="text-left py-3 pr-4">Appliance</th>
+                  <th className="text-center py-3 px-4">Power (kW)</th>
+                  <th className="text-center py-3 px-4">Cost/Hour</th>
+                  <th className="text-center py-3 px-4">Cost/Day*</th>
+                  <th className="text-center py-3 pl-4">Cost/Year*</th>
+                </tr>
+              </thead>
+              <tbody className="text-slate-300">
+                <tr className="border-b border-slate-700/50">
+                  <td className="py-3 pr-4 font-medium">Combi Boiler (heating)</td>
+                  <td className="text-center py-3 px-4">24-28 kW</td>
+                  <td className="text-center py-3 px-4">~£1.75</td>
+                  <td className="text-center py-3 px-4">~£5.25</td>
+                  <td className="text-center py-3 pl-4 text-orange-400">~£960</td>
+                </tr>
+                <tr className="border-b border-slate-700/50">
+                  <td className="py-3 pr-4 font-medium">Gas Fire</td>
+                  <td className="text-center py-3 px-4">3-6 kW</td>
+                  <td className="text-center py-3 px-4">~25p</td>
+                  <td className="text-center py-3 px-4">~£1.00</td>
+                  <td className="text-center py-3 pl-4 text-orange-400">~£180</td>
+                </tr>
+                <tr className="border-b border-slate-700/50">
+                  <td className="py-3 pr-4 font-medium">Gas Hob (per ring)</td>
+                  <td className="text-center py-3 px-4">2 kW</td>
+                  <td className="text-center py-3 px-4">~12p</td>
+                  <td className="text-center py-3 px-4">~12p</td>
+                  <td className="text-center py-3 pl-4 text-orange-400">~£45</td>
+                </tr>
+                <tr className="border-b border-slate-700/50">
+                  <td className="py-3 pr-4 font-medium">Gas Oven</td>
+                  <td className="text-center py-3 px-4">2.5-3 kW</td>
+                  <td className="text-center py-3 px-4">~19p</td>
+                  <td className="text-center py-3 px-4">~19p</td>
+                  <td className="text-center py-3 pl-4 text-orange-400">~£35</td>
+                </tr>
+                <tr>
+                  <td className="py-3 pr-4 font-medium">Gas Tumble Dryer</td>
+                  <td className="text-center py-3 px-4">2.5 kW</td>
+                  <td className="text-center py-3 px-4">~16p</td>
+                  <td className="text-center py-3 px-4">~16p</td>
+                  <td className="text-center py-3 pl-4 text-orange-400">~£30</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="text-xs text-slate-500 text-center">
+            *Based on typical usage patterns. Boiler assumes 3 hours effective runtime/day during heating season.
+            Cooking appliances assume average household usage. Rates based on January 2025 price cap (6.24p/kWh).
+          </p>
+
+          {/* Energy Saving Tips */}
+          <div className="mt-8 p-6 bg-gradient-to-r from-orange-500/10 to-amber-500/10 rounded-xl border border-orange-500/20">
+            <h3 className="text-lg font-semibold text-orange-400 mb-4">Tips to Reduce Gas Appliance Costs</h3>
+            <div className="grid md:grid-cols-2 gap-4 text-sm text-slate-300">
+              <div className="flex items-start gap-2">
+                <span className="text-orange-400 mt-0.5">1.</span>
+                <span><strong>Lower your thermostat</strong> by 1°C to save up to £100/year on heating</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-orange-400 mt-0.5">2.</span>
+                <span><strong>Service your boiler annually</strong> to maintain efficiency</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-orange-400 mt-0.5">3.</span>
+                <span><strong>Use lids on pans</strong> to reduce hob cooking time by up to 30%</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-orange-400 mt-0.5">4.</span>
+                <span><strong>Bleed radiators regularly</strong> to ensure efficient heat distribution</span>
+              </div>
+            </div>
+            <p className="text-xs text-slate-500 mt-4">
+              Source:{' '}
+              <a href="https://www.energysavingtrust.org.uk/" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">
+                Energy Saving Trust
+              </a>
+            </p>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 bg-slate-900/50">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
-            Frequently Asked Questions
+            Gas Cost Calculator FAQ
           </h2>
 
           <div className="space-y-4">
@@ -271,6 +398,71 @@ export default function GasCostCalculatorPage() {
                 </p>
               </details>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Resources Section */}
+      <section className="py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-white text-center mb-8">
+            Helpful Energy Resources
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <a
+              href="https://www.ofgem.gov.uk/information-for-household-consumers/energy-price-cap"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group"
+            >
+              <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-orange-400">Ofgem Energy Price Cap</h3>
+              <p className="text-slate-400 text-sm">Official information on current gas and electricity price cap rates from the energy regulator.</p>
+            </a>
+
+            <a
+              href="https://www.energysavingtrust.org.uk/advice/boilers/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group"
+            >
+              <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-orange-400">Energy Saving Trust - Boilers</h3>
+              <p className="text-slate-400 text-sm">Expert advice on boiler efficiency, maintenance, and when to consider upgrading your heating system.</p>
+            </a>
+
+            <a
+              href="https://www.gassaferegister.co.uk/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group"
+            >
+              <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-orange-400">Gas Safe Register</h3>
+              <p className="text-slate-400 text-sm">Find a registered gas engineer for boiler servicing, repairs, and appliance installations.</p>
+            </a>
+
+            <a
+              href="https://www.which.co.uk/reviews/boilers"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group"
+            >
+              <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-orange-400">Which? Boiler Reviews</h3>
+              <p className="text-slate-400 text-sm">Independent reviews and reliability ratings for boilers if you&apos;re considering a replacement.</p>
+            </a>
+          </div>
+
+          {/* CTA */}
+          <div className="mt-12 p-6 bg-gradient-to-r from-orange-500/10 to-amber-500/10 rounded-xl border border-orange-500/20 text-center">
+            <h3 className="text-lg font-semibold text-white mb-2">Are you a Gas Safe Engineer?</h3>
+            <p className="text-slate-400 text-sm mb-4">
+              Use our professional <strong>gas rate calculator</strong> to check appliance heat input against rated capacity.
+            </p>
+            <Link
+              href="/"
+              className="inline-flex px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-xl transition-colors"
+            >
+              Gas Rate Calculator for Engineers
+            </Link>
           </div>
         </div>
       </section>
