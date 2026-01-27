@@ -36,9 +36,15 @@ The Gas Rate Calculator helps UK Gas Safe registered engineers:
 - [x] Help with fault diagnosis
 - [x] Reference gas regulations
 
-### Additional Pages - IN PROGRESS
-- [ ] /gas-bill-calculator - Monthly bill estimation
-- [ ] /gas-cost-calculator - Appliance running costs
+### Additional Pages - COMPLETE
+- [x] /gas-bill-calculator - Monthly bill estimation
+- [x] /gas-cost-calculator - Appliance running costs
+
+### Authentication - COMPLETE
+- [x] Neon Auth integration with NeonAuthUIProvider
+- [x] Voice assistant gated behind login
+- [x] Sign in/Sign up in Navigation
+- [x] UserButton for logged-in users
 
 ---
 
@@ -168,12 +174,13 @@ const flowRateM3HFromImperial = flowRateCuFtH * 0.0283168
 | Page | URL | Status |
 |------|-----|--------|
 | Homepage | `/` | Done |
-| Gas Bill Calculator | `/gas-bill-calculator` | Pending |
-| Gas Cost Calculator | `/gas-cost-calculator` | Pending |
+| Gas Bill Calculator | `/gas-bill-calculator` | Done |
+| Gas Cost Calculator | `/gas-cost-calculator` | Done |
 | Articles | `/articles` | Done |
 | Contact | `/contact` | Done |
 | Privacy | `/privacy` | Done |
 | Terms | `/terms` | Done |
+| Auth Pages | `/auth/[path]` | Done |
 
 ---
 
@@ -217,3 +224,91 @@ Key files to extract:
 1. Calculator component logic
 2. Timer functionality
 3. SEO content and FAQs
+
+---
+
+## PRD Documentation
+
+### Gas Bill Calculator UK - SEO Optimisation (January 2026)
+
+**Target Keyword:** `gas bill calculator uk`
+
+**Page URL:** `/gas-bill-calculator`
+
+#### SEO Requirements Implemented
+
+| Requirement | Status | Implementation |
+|-------------|--------|----------------|
+| H1 contains full keyword | ✅ | "Gas Bill Calculator UK: Free Estimator Tool" |
+| Keywords in H2/H3 headings | ✅ | All section headings include "UK", "gas bill", "calculator" |
+| Strong/bold tags for keywords | ✅ | `<strong>` used throughout for gas, bill, calculator, uk |
+| Meta title optimised | ✅ | "Gas Bill Calculator UK \| Free Gas Usage & Cost Estimator 2026" |
+| Meta description optimised | ✅ | 160 chars with keywords and January 2026 reference |
+| Table of contents | ✅ | Smooth scroll navigation with 7 sections |
+| High-authority external links | ✅ | Ofgem, Citizens Advice, Gas Safe, GOV.UK, Energy Saving Trust, MoneySavingExpert |
+| FAQ Schema (JSON-LD) | ✅ | 10 FAQs with FAQPage structured data |
+| WebApplication Schema | ✅ | Added for rich snippets |
+| Word count increased | ✅ | From ~150 to ~2000+ words |
+| Data tables | ✅ | UK Energy Price Cap History table |
+| Images with alt text | ✅ | Gas meter illustration with keyword-rich aria-label |
+
+#### Beta/Disclaimer Requirements
+
+| Requirement | Status | Location |
+|-------------|--------|----------|
+| Beta disclaimer banner | ✅ | Amber banner at page top |
+| Professional disclaimer | ✅ | Red warning box below calculator |
+| Gas Safe engineer warning | ✅ | Links to Gas Safe Register |
+| Ofgem regulatory reference | ✅ | Links to official Ofgem guidance |
+| Footer beta notice | ✅ | Final section before footer |
+
+#### Page Sections
+
+1. **Beta Disclaimer Banner** - Warning about estimation-only tool
+2. **Hero Section** - H1, intro text, gas meter illustration
+3. **Table of Contents** - Quick navigation with anchors
+4. **Calculator Section** - kWh input, period selector, rates, results
+5. **Professional Disclaimer** - Warning to consult professionals
+6. **How UK Gas Bills Work** - 4-step process explanation
+7. **UK Gas Bill Formula** - Technical formula display
+8. **UK Energy Price Cap Explained** - Rate cards + history table
+9. **Average UK Gas Bills** - Property size usage reference
+10. **Regional Variations** - UK regional differences
+11. **10 Tips to Reduce Your UK Gas Bill** - Energy saving advice
+12. **FAQ Section** - 10 expandable FAQs with schema
+13. **Helpful Resources** - 6 high-authority external links
+14. **CTA for Engineers** - Link to main Gas Rate Calculator
+15. **Final Beta Notice** - Footer disclaimer
+
+#### UK Energy Price Cap Data (January 2026)
+
+| Rate Type | Value |
+|-----------|-------|
+| Gas Unit Rate | 6.24p/kWh |
+| Standing Charge | 31.43p/day |
+| VAT Rate | 5% |
+
+#### External Links (High Authority)
+
+- Ofgem (UK Energy Regulator): https://www.ofgem.gov.uk/
+- Citizens Advice Energy: https://www.citizensadvice.org.uk/consumer/energy/
+- Gas Safe Register: https://www.gassaferegister.co.uk/
+- Energy Saving Trust: https://www.energysavingtrust.org.uk/
+- GOV.UK Energy Efficiency: https://www.gov.uk/improve-energy-efficiency
+- MoneySavingExpert Energy: https://www.moneysavingexpert.com/utilities/
+
+#### Files Modified
+
+- `app/gas-bill-calculator/page.tsx` - Main page component
+- `app/gas-bill-calculator/layout.tsx` - SEO metadata
+
+---
+
+### Future SEO Tasks
+
+- [ ] Optimise `/gas-cost-calculator` for "gas cost calculator uk"
+- [ ] Optimise `/` homepage for "gas rate calculator uk"
+- [ ] Optimise `/imperial-gas-rate-calculator` for "imperial gas calculator"
+- [ ] Optimise `/lpg-gas-rate-calculator` for "lpg gas calculator uk"
+- [ ] Add more internal linking between calculator pages
+- [ ] Consider adding comparison tool between calculators
