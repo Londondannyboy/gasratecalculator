@@ -2,6 +2,76 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
+
+// Unsplash images with attribution
+const images = {
+  hero: {
+    src: 'https://images.unsplash.com/photo-1595166986545-bf6dacb22b4e?w=1920&q=80',
+    alt: 'Gas flame burning on boiler - UK gas bill calculator',
+    credit: 'Unsplash'
+  },
+  calculator: {
+    src: 'https://images.unsplash.com/photo-1709880945165-d2208c6ad2ec?w=800&q=80',
+    alt: 'Calculator for UK gas bill estimation',
+    credit: 'Unsplash'
+  },
+  pounds: {
+    src: 'https://images.unsplash.com/photo-1700047614820-0f32080db6f8?w=800&q=80',
+    alt: 'British pound notes for UK gas bill payment',
+    credit: 'Unsplash'
+  },
+  thermostat: {
+    src: 'https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?w=800&q=80',
+    alt: 'Smart thermostat for UK home heating control',
+    credit: 'Unsplash'
+  },
+  cozyHome: {
+    src: 'https://images.unsplash.com/photo-1606942472980-a70a972e5150?w=1200&q=80',
+    alt: 'Cozy UK home with fireplace - reduce gas bill',
+    credit: 'Unsplash'
+  },
+  radiatorWoman: {
+    src: 'https://images.unsplash.com/photo-1692987909694-772e94e69ddf?w=1200&q=80',
+    alt: 'Woman by radiator in UK home - home heating',
+    credit: 'Unsplash'
+  },
+  flame: {
+    src: 'https://images.unsplash.com/photo-1760907217271-00728f049547?w=800&q=80',
+    alt: 'Gas flame - UK gas bill FAQ',
+    credit: 'Unsplash'
+  },
+  britishTown: {
+    src: 'https://images.unsplash.com/photo-1651488644799-53c3046d86bd?w=1200&q=80',
+    alt: 'British town with houses - UK gas bill resources',
+    credit: 'Unsplash'
+  },
+  meter: {
+    src: 'https://images.unsplash.com/photo-1622801179563-94f5aa9a1c6d?w=600&q=80',
+    alt: 'Gas meter for UK gas bill reading',
+    credit: 'Unsplash'
+  },
+  coins: {
+    src: 'https://images.unsplash.com/photo-1703437874457-560d410f82fa?w=600&q=80',
+    alt: 'British coins for UK gas bill payment',
+    credit: 'Unsplash'
+  },
+  houseNight: {
+    src: 'https://images.unsplash.com/photo-1737948641148-1145c4273c70?w=600&q=80',
+    alt: 'UK house at night with lights - home energy',
+    credit: 'Unsplash'
+  },
+  radiator: {
+    src: 'https://images.unsplash.com/photo-1761061079418-e7b9fde0707c?w=600&q=80',
+    alt: 'White radiator in UK home - heating system',
+    credit: 'Unsplash'
+  },
+  window: {
+    src: 'https://images.unsplash.com/photo-1616714004733-803fc9e621b3?w=600&q=80',
+    alt: 'Window in UK home - insulation and energy efficiency',
+    credit: 'Unsplash'
+  },
+}
 
 const faqs = [
   {
@@ -46,7 +116,6 @@ const faqs = [
   },
 ]
 
-// Table of contents items
 const tocItems = [
   { id: 'calculator', label: 'Gas Bill Calculator' },
   { id: 'how-bills-work', label: 'How UK Gas Bills Work' },
@@ -59,8 +128,8 @@ const tocItems = [
 
 export default function GasBillCalculatorPage() {
   const [usageKwh, setUsageKwh] = useState('')
-  const [unitRate, setUnitRate] = useState('6.24') // Average UK rate p/kWh
-  const [standingCharge, setStandingCharge] = useState('31.43') // Average UK daily rate p/day
+  const [unitRate, setUnitRate] = useState('6.24')
+  const [standingCharge, setStandingCharge] = useState('31.43')
   const [period, setPeriod] = useState<'daily' | 'monthly' | 'quarterly' | 'annual'>('monthly')
   const [result, setResult] = useState<{ usage: number; standing: number; total: number; vat: number } | null>(null)
 
@@ -77,10 +146,10 @@ export default function GasBillCalculatorPage() {
     const standing = parseFloat(standingCharge) || 0
     const days = periodDays[period]
 
-    const usageCost = (usage * rate) / 100 // Convert pence to pounds
-    const standingCost = (standing * days) / 100 // Standing charge for period
+    const usageCost = (usage * rate) / 100
+    const standingCost = (standing * days) / 100
     const subtotal = usageCost + standingCost
-    const vat = subtotal * 0.05 // VAT at 5% for domestic energy
+    const vat = subtotal * 0.05
     const total = subtotal + vat
 
     setResult({
@@ -156,25 +225,36 @@ export default function GasBillCalculatorPage() {
         </div>
       </section>
 
-      {/* Hero Section */}
-      <section className="relative py-16 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-orange-500/20 via-transparent to-transparent" />
+      {/* Hero Section with Background Image */}
+      <section className="relative py-20 px-4 overflow-hidden min-h-[500px]">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src={images.hero.src}
+            alt={images.hero.alt}
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/80 to-slate-900/95" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-orange-500/30 via-transparent to-transparent" />
+        </div>
 
         <div className="relative max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/10 border border-orange-500/20 rounded-full text-orange-400 text-sm mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/20 backdrop-blur-sm border border-orange-500/30 rounded-full text-orange-400 text-sm mb-6">
             <span className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" />
             Free <strong>UK Gas Bill</strong> Calculator - Updated January 2026
           </div>
 
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-lg">
             Gas Bill Calculator UK:{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-400">
               Free Estimator Tool
             </span>
           </h1>
 
-          <p className="text-lg text-slate-300 max-w-2xl mx-auto mb-4">
+          <p className="text-lg text-slate-200 max-w-2xl mx-auto mb-4 drop-shadow">
             Use our free <strong>gas bill calculator UK</strong> to estimate your monthly, quarterly or annual <strong>UK gas bill</strong> based on kWh usage and current{' '}
             <a
               href="https://www.ofgem.gov.uk/information-for-household-consumers/energy-price-cap"
@@ -184,25 +264,23 @@ export default function GasBillCalculatorPage() {
             >
               Ofgem Energy Price Cap
             </a>{' '}
-            rates. Includes standing charges and 5% VAT calculation for accurate <strong>UK</strong> estimates.
+            rates.
           </p>
 
-          <p className="text-sm text-slate-400 max-w-xl mx-auto mb-6">
+          <p className="text-sm text-slate-300 max-w-xl mx-auto mb-8">
             Uses January 2026 <strong>UK</strong> price cap rates: <strong>6.24p/kWh</strong> unit rate and <strong>31.43p/day</strong> standing charge
           </p>
 
-          {/* Gas Meter Illustration */}
-          <div className="flex justify-center mb-6">
-            <div className="relative w-32 h-32 bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl border border-slate-600 flex items-center justify-center" role="img" aria-label="UK gas meter illustration for gas bill calculator">
-              <div className="text-center">
-                <div className="text-2xl font-mono text-orange-400 font-bold">00000</div>
-                <div className="text-xs text-slate-400 mt-1">m³</div>
-              </div>
-              <div className="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs">£</span>
-              </div>
-            </div>
-          </div>
+          {/* Scroll indicator */}
+          <button
+            onClick={() => scrollToSection('calculator')}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-xl transition-all shadow-lg hover:shadow-orange-500/25"
+          >
+            Calculate Your Bill
+            <svg className="w-5 h-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </button>
         </div>
       </section>
 
@@ -210,7 +288,7 @@ export default function GasBillCalculatorPage() {
       <section className="py-6 px-4 bg-slate-800/50 border-y border-slate-700/50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-lg font-semibold text-white mb-4">
-            <span className="text-orange-400">📋</span> Quick Navigation: UK Gas Bill Calculator Guide
+            Quick Navigation: UK Gas Bill Calculator Guide
           </h2>
           <nav aria-label="Table of contents">
             <ul className="flex flex-wrap gap-3">
@@ -229,14 +307,39 @@ export default function GasBillCalculatorPage() {
         </div>
       </section>
 
-      {/* Calculator Section */}
-      <section id="calculator" className="py-12 px-4 bg-slate-900/50">
-        <div className="max-w-2xl mx-auto">
-          <div className="bg-slate-800/50 rounded-2xl border border-slate-700/50 p-6 sm:p-8">
-            <h2 className="text-2xl font-bold text-white mb-2">Calculate Your UK Gas Bill</h2>
-            <p className="text-slate-400 text-sm mb-6">
-              Enter your gas usage below to estimate your <strong>UK gas bill</strong>. This <strong>gas bill calculator</strong> uses the latest <strong>UK</strong> Ofgem price cap rates.
-            </p>
+      {/* Calculator Section with Background Image */}
+      <section id="calculator" className="relative py-16 px-4 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src={images.pounds.src}
+            alt={images.pounds.alt}
+            fill
+            className="object-cover opacity-20"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-900" />
+        </div>
+
+        <div className="relative max-w-2xl mx-auto">
+          <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-slate-700/50 p-6 sm:p-8 shadow-2xl">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                <Image
+                  src={images.calculator.src}
+                  alt={images.calculator.alt}
+                  fill
+                  className="object-cover"
+                  sizes="64px"
+                />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-white">Calculate Your UK Gas Bill</h2>
+                <p className="text-slate-400 text-sm">
+                  Enter your gas usage to estimate your <strong>UK gas bill</strong>
+                </p>
+              </div>
+            </div>
 
             <div className="space-y-6">
               {/* Usage Input */}
@@ -253,7 +356,7 @@ export default function GasBillCalculatorPage() {
                   aria-describedby="usage-help"
                 />
                 <p id="usage-help" className="text-xs text-slate-500 mt-1">
-                  Enter your gas usage in kWh for the billing period. Find this on your <strong>UK gas bill</strong> or energy statement.
+                  Find this on your <strong>UK gas bill</strong> or energy statement
                 </p>
               </div>
 
@@ -307,21 +410,21 @@ export default function GasBillCalculatorPage() {
                 </div>
               </div>
               <p className="text-xs text-slate-500">
-                Default rates based on <strong>UK</strong> Energy Price Cap (January 2026). Check your <strong>bill</strong> for your exact rates.
+                Default rates based on <strong>UK</strong> Energy Price Cap (January 2026)
               </p>
 
               {/* Calculate Button */}
               <button
                 onClick={calculate}
                 disabled={!usageKwh}
-                className="w-full px-6 py-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold rounded-xl hover:from-orange-600 hover:to-amber-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-6 py-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold rounded-xl hover:from-orange-600 hover:to-amber-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-orange-500/25"
               >
                 Calculate UK Gas Bill
               </button>
 
               {/* Results */}
               {result && (
-                <div className="mt-6 p-6 bg-slate-900/50 rounded-xl border border-slate-700" role="region" aria-label="Gas bill calculation results">
+                <div className="mt-6 p-6 bg-slate-900/70 rounded-xl border border-orange-500/30" role="region" aria-label="Gas bill calculation results">
                   <h3 className="text-lg font-semibold text-white mb-4">Estimated UK Gas Bill</h3>
                   <div className="space-y-3">
                     <div className="flex justify-between text-slate-300">
@@ -341,16 +444,13 @@ export default function GasBillCalculatorPage() {
                       <span className="text-orange-400">£{result.total.toFixed(2)}</span>
                     </div>
                   </div>
-                  <p className="text-xs text-slate-500 mt-4">
-                    This is an estimate only. Your actual <strong>UK gas bill</strong> may vary based on supplier and region.
-                  </p>
                 </div>
               )}
             </div>
           </div>
 
           {/* Professional Disclaimer */}
-          <div className="mt-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl">
+          <div className="mt-6 p-4 bg-red-500/10 backdrop-blur-sm border border-red-500/30 rounded-xl">
             <div className="flex items-start gap-3">
               <svg className="w-6 h-6 text-red-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -359,15 +459,10 @@ export default function GasBillCalculatorPage() {
                 <h4 className="font-semibold text-red-400 mb-1">Important Disclaimer</h4>
                 <p className="text-sm text-slate-400">
                   This <strong>gas bill calculator UK</strong> is a <strong>beta tool</strong> providing estimates only. For accurate billing information,
-                  always consult your energy supplier directly. For any gas safety concerns or appliance issues, contact a{' '}
+                  always consult your energy supplier. For gas safety concerns, contact a{' '}
                   <a href="https://www.gassaferegister.co.uk/" target="_blank" rel="noopener noreferrer" className="text-orange-400 underline hover:text-orange-300">
                     Gas Safe registered engineer
-                  </a>{' '}
-                  or your energy supplier. You should also refer to official guidance from{' '}
-                  <a href="https://www.ofgem.gov.uk/" target="_blank" rel="noopener noreferrer" className="text-orange-400 underline hover:text-orange-300">
-                    Ofgem
-                  </a>{' '}
-                  for regulatory information.
+                  </a>.
                 </p>
               </div>
             </div>
@@ -377,22 +472,13 @@ export default function GasBillCalculatorPage() {
           <div className="mt-8">
             <h3 className="text-lg font-semibold text-white mb-4 text-center">Related UK Gas Calculators</h3>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="/"
-                className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-xl transition-colors"
-              >
+              <Link href="/" className="px-6 py-3 bg-slate-700/80 hover:bg-slate-600 text-white font-medium rounded-xl transition-colors backdrop-blur-sm">
                 Gas Rate Calculator UK
               </Link>
-              <Link
-                href="/gas-cost-calculator"
-                className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-xl transition-colors"
-              >
+              <Link href="/gas-cost-calculator" className="px-6 py-3 bg-slate-700/80 hover:bg-slate-600 text-white font-medium rounded-xl transition-colors backdrop-blur-sm">
                 Gas Cost Calculator UK
               </Link>
-              <Link
-                href="/imperial-gas-rate-calculator"
-                className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-xl transition-colors"
-              >
+              <Link href="/imperial-gas-rate-calculator" className="px-6 py-3 bg-slate-700/80 hover:bg-slate-600 text-white font-medium rounded-xl transition-colors backdrop-blur-sm">
                 Imperial Gas Rate Calculator
               </Link>
             </div>
@@ -401,80 +487,132 @@ export default function GasBillCalculatorPage() {
       </section>
 
       {/* How Gas Bills Work Section */}
-      <section id="how-bills-work" className="py-12 px-4">
+      <section id="how-bills-work" className="py-16 px-4 bg-slate-900">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-4 text-center">
             How UK Gas Bills Are Calculated
           </h2>
           <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
-            Understanding how your <strong>UK gas bill</strong> is calculated can help you manage your energy costs more effectively.
-            Here&apos;s a step-by-step breakdown of the <strong>gas bill calculation</strong> process used across the <strong>UK</strong>.
+            Understanding how your <strong>UK gas bill</strong> is calculated helps you manage energy costs more effectively.
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 mb-8">
-            <div className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50">
-              <div className="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-xl font-bold text-orange-400">1</span>
+            {/* Step 1 - with meter image */}
+            <div className="relative p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-24 h-24 opacity-30 group-hover:opacity-50 transition-opacity">
+                <Image
+                  src={images.meter.src}
+                  alt={images.meter.alt}
+                  fill
+                  className="object-cover rounded-tr-xl"
+                  sizes="96px"
+                />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">Meter Reading to kWh Conversion</h3>
-              <p className="text-slate-400 text-sm">
-                Your <strong>UK</strong> gas usage is measured in cubic metres (m³) or cubic feet by your meter. This is converted to kWh using the calorific value
-                (typically 39.5 MJ/m³) and volume correction factor (1.02264). All <strong>UK gas bills</strong> use kWh as the standard unit.
-              </p>
+              <div className="relative">
+                <div className="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center mb-4">
+                  <span className="text-xl font-bold text-orange-400">1</span>
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">Meter Reading to kWh</h3>
+                <p className="text-slate-400 text-sm">
+                  Your <strong>UK</strong> gas usage is measured in cubic metres (m³) then converted to kWh using the calorific value (39.5 MJ/m³) and volume correction factor.
+                </p>
+              </div>
             </div>
 
-            <div className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50">
-              <div className="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-xl font-bold text-orange-400">2</span>
+            {/* Step 2 - with coins image */}
+            <div className="relative p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-24 h-24 opacity-30 group-hover:opacity-50 transition-opacity">
+                <Image
+                  src={images.coins.src}
+                  alt={images.coins.alt}
+                  fill
+                  className="object-cover rounded-tr-xl"
+                  sizes="96px"
+                />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">Apply the Unit Rate</h3>
-              <p className="text-slate-400 text-sm">
-                Your kWh usage is multiplied by the unit rate. Under the <strong>UK</strong>{' '}
-                <a href="https://www.ofgem.gov.uk/information-for-household-consumers/energy-price-cap" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">
-                  Ofgem Energy Price Cap
-                </a>, this is currently ~6.24p/kWh. This forms the main variable part of your <strong>gas bill</strong>.
-              </p>
+              <div className="relative">
+                <div className="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center mb-4">
+                  <span className="text-xl font-bold text-orange-400">2</span>
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">Apply Unit Rate</h3>
+                <p className="text-slate-400 text-sm">
+                  Your kWh usage is multiplied by the unit rate (~6.24p/kWh under the <strong>UK</strong> Ofgem price cap). This forms the main part of your <strong>gas bill</strong>.
+                </p>
+              </div>
             </div>
 
-            <div className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50">
-              <div className="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-xl font-bold text-orange-400">3</span>
+            {/* Step 3 - with house at night */}
+            <div className="relative p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-24 h-24 opacity-30 group-hover:opacity-50 transition-opacity">
+                <Image
+                  src={images.houseNight.src}
+                  alt={images.houseNight.alt}
+                  fill
+                  className="object-cover rounded-tr-xl"
+                  sizes="96px"
+                />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">Add Standing Charge</h3>
-              <p className="text-slate-400 text-sm">
-                The <strong>UK</strong> standing charge (~31.43p/day) is added regardless of usage. This covers network maintenance, meter reading, and billing costs.
-                For a quarterly <strong>gas bill</strong>, this typically adds around £28.60 to your total.
-              </p>
+              <div className="relative">
+                <div className="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center mb-4">
+                  <span className="text-xl font-bold text-orange-400">3</span>
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">Add Standing Charge</h3>
+                <p className="text-slate-400 text-sm">
+                  The <strong>UK</strong> standing charge (~31.43p/day) is added regardless of usage. For a quarterly <strong>bill</strong>, this adds ~£28.60.
+                </p>
+              </div>
             </div>
 
-            <div className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50">
-              <div className="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-xl font-bold text-orange-400">4</span>
+            {/* Step 4 - with window */}
+            <div className="relative p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-24 h-24 opacity-30 group-hover:opacity-50 transition-opacity">
+                <Image
+                  src={images.window.src}
+                  alt={images.window.alt}
+                  fill
+                  className="object-cover rounded-tr-xl"
+                  sizes="96px"
+                />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">Calculate VAT (5%)</h3>
-              <p className="text-slate-400 text-sm">
-                Domestic gas in the <strong>UK</strong> is charged at a reduced VAT rate of 5% (not the standard 20%). This is added to your final <strong>bill</strong> amount,
-                making energy slightly more affordable for <strong>UK</strong> households.
-              </p>
+              <div className="relative">
+                <div className="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center mb-4">
+                  <span className="text-xl font-bold text-orange-400">4</span>
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">Calculate VAT (5%)</h3>
+                <p className="text-slate-400 text-sm">
+                  Domestic gas in the <strong>UK</strong> has a reduced VAT rate of 5% (not 20%), making energy more affordable for households.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* UK Gas Bill Formula */}
-          <div className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 mb-8">
+          {/* Formula */}
+          <div className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50">
             <h3 className="text-lg font-semibold text-white mb-4">UK Gas Bill Formula</h3>
             <div className="bg-slate-900/50 p-4 rounded-lg font-mono text-sm text-orange-400 overflow-x-auto">
               <p>Total Gas Bill = ((kWh × Unit Rate) + (Standing Charge × Days)) × 1.05</p>
             </div>
             <p className="text-slate-500 text-xs mt-3">
-              This is the standard formula used to calculate all <strong>UK gas bills</strong>. The 1.05 multiplier accounts for the 5% VAT.
+              The 1.05 multiplier accounts for the 5% VAT on all <strong>UK gas bills</strong>.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Energy Price Cap Section */}
-      <section id="price-cap" className="py-12 px-4 bg-slate-900/50">
-        <div className="max-w-4xl mx-auto">
+      {/* Energy Price Cap Section with Thermostat Image */}
+      <section id="price-cap" className="relative py-16 px-4 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src={images.thermostat.src}
+            alt={images.thermostat.alt}
+            fill
+            className="object-cover opacity-15"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-900" />
+        </div>
+
+        <div className="relative max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-4 text-center">
             UK Energy Price Cap Explained
           </h2>
@@ -483,28 +621,27 @@ export default function GasBillCalculatorPage() {
             <a href="https://www.ofgem.gov.uk/" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">
               Ofgem
             </a>{' '}
-            and determines the maximum rates suppliers can charge for gas and electricity.
-            Understanding the price cap helps you evaluate your <strong>UK gas bill</strong>.
+            and determines maximum rates suppliers can charge.
           </p>
 
           {/* Price Cap Info Cards */}
           <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="p-6 bg-gradient-to-br from-orange-500/10 to-amber-500/10 rounded-xl border border-orange-500/20 text-center">
-              <div className="text-3xl font-bold text-orange-400 mb-2">6.24p</div>
+            <div className="p-6 bg-gradient-to-br from-orange-500/20 to-amber-500/10 backdrop-blur-sm rounded-xl border border-orange-500/30 text-center">
+              <div className="text-4xl font-bold text-orange-400 mb-2">6.24p</div>
               <div className="text-slate-300 font-medium">per kWh</div>
               <div className="text-slate-500 text-sm mt-2">UK Gas Unit Rate</div>
               <div className="text-slate-600 text-xs mt-1">January 2026 Price Cap</div>
             </div>
 
-            <div className="p-6 bg-gradient-to-br from-orange-500/10 to-amber-500/10 rounded-xl border border-orange-500/20 text-center">
-              <div className="text-3xl font-bold text-orange-400 mb-2">31.43p</div>
+            <div className="p-6 bg-gradient-to-br from-orange-500/20 to-amber-500/10 backdrop-blur-sm rounded-xl border border-orange-500/30 text-center">
+              <div className="text-4xl font-bold text-orange-400 mb-2">31.43p</div>
               <div className="text-slate-300 font-medium">per day</div>
               <div className="text-slate-500 text-sm mt-2">UK Standing Charge</div>
               <div className="text-slate-600 text-xs mt-1">Daily fixed cost</div>
             </div>
 
-            <div className="p-6 bg-gradient-to-br from-orange-500/10 to-amber-500/10 rounded-xl border border-orange-500/20 text-center">
-              <div className="text-3xl font-bold text-orange-400 mb-2">5%</div>
+            <div className="p-6 bg-gradient-to-br from-orange-500/20 to-amber-500/10 backdrop-blur-sm rounded-xl border border-orange-500/30 text-center">
+              <div className="text-4xl font-bold text-orange-400 mb-2">5%</div>
               <div className="text-slate-300 font-medium">VAT Rate</div>
               <div className="text-slate-500 text-sm mt-2">Reduced Rate</div>
               <div className="text-slate-600 text-xs mt-1">For domestic energy</div>
@@ -512,95 +649,102 @@ export default function GasBillCalculatorPage() {
           </div>
 
           {/* Price Cap History Table */}
-          <div className="overflow-x-auto">
+          <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-6 border border-slate-700/50">
             <h3 className="text-lg font-semibold text-white mb-4">UK Energy Price Cap History</h3>
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-700">
-                  <th className="text-left py-3 px-4 text-slate-300 font-medium">Period</th>
-                  <th className="text-right py-3 px-4 text-slate-300 font-medium">Gas Unit Rate (p/kWh)</th>
-                  <th className="text-right py-3 px-4 text-slate-300 font-medium">Standing Charge (p/day)</th>
-                  <th className="text-right py-3 px-4 text-slate-300 font-medium">Typical Annual Bill*</th>
-                </tr>
-              </thead>
-              <tbody className="text-slate-400">
-                <tr className="border-b border-slate-700/50 bg-orange-500/5">
-                  <td className="py-3 px-4 font-medium text-white">Jan 2026 (Current)</td>
-                  <td className="py-3 px-4 text-right">6.24p</td>
-                  <td className="py-3 px-4 text-right">31.43p</td>
-                  <td className="py-3 px-4 text-right text-orange-400">£1,738</td>
-                </tr>
-                <tr className="border-b border-slate-700/50">
-                  <td className="py-3 px-4">Oct 2025</td>
-                  <td className="py-3 px-4 text-right">5.48p</td>
-                  <td className="py-3 px-4 text-right">31.41p</td>
-                  <td className="py-3 px-4 text-right">£1,568</td>
-                </tr>
-                <tr className="border-b border-slate-700/50">
-                  <td className="py-3 px-4">Jul 2025</td>
-                  <td className="py-3 px-4 text-right">5.48p</td>
-                  <td className="py-3 px-4 text-right">31.41p</td>
-                  <td className="py-3 px-4 text-right">£1,568</td>
-                </tr>
-                <tr className="border-b border-slate-700/50">
-                  <td className="py-3 px-4">Apr 2025</td>
-                  <td className="py-3 px-4 text-right">5.48p</td>
-                  <td className="py-3 px-4 text-right">31.41p</td>
-                  <td className="py-3 px-4 text-right">£1,690</td>
-                </tr>
-                <tr className="border-b border-slate-700/50">
-                  <td className="py-3 px-4">Jan 2025</td>
-                  <td className="py-3 px-4 text-right">7.42p</td>
-                  <td className="py-3 px-4 text-right">29.60p</td>
-                  <td className="py-3 px-4 text-right">£1,928</td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-slate-700">
+                    <th className="text-left py-3 px-4 text-slate-300 font-medium">Period</th>
+                    <th className="text-right py-3 px-4 text-slate-300 font-medium">Gas (p/kWh)</th>
+                    <th className="text-right py-3 px-4 text-slate-300 font-medium">Standing (p/day)</th>
+                    <th className="text-right py-3 px-4 text-slate-300 font-medium">Annual Bill*</th>
+                  </tr>
+                </thead>
+                <tbody className="text-slate-400">
+                  <tr className="border-b border-slate-700/50 bg-orange-500/10">
+                    <td className="py-3 px-4 font-medium text-white">Jan 2026 (Current)</td>
+                    <td className="py-3 px-4 text-right">6.24p</td>
+                    <td className="py-3 px-4 text-right">31.43p</td>
+                    <td className="py-3 px-4 text-right text-orange-400 font-semibold">£1,738</td>
+                  </tr>
+                  <tr className="border-b border-slate-700/50">
+                    <td className="py-3 px-4">Oct 2025</td>
+                    <td className="py-3 px-4 text-right">5.48p</td>
+                    <td className="py-3 px-4 text-right">31.41p</td>
+                    <td className="py-3 px-4 text-right">£1,568</td>
+                  </tr>
+                  <tr className="border-b border-slate-700/50">
+                    <td className="py-3 px-4">Jul 2025</td>
+                    <td className="py-3 px-4 text-right">5.48p</td>
+                    <td className="py-3 px-4 text-right">31.41p</td>
+                    <td className="py-3 px-4 text-right">£1,568</td>
+                  </tr>
+                  <tr className="border-b border-slate-700/50">
+                    <td className="py-3 px-4">Apr 2025</td>
+                    <td className="py-3 px-4 text-right">5.48p</td>
+                    <td className="py-3 px-4 text-right">31.41p</td>
+                    <td className="py-3 px-4 text-right">£1,690</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4">Jan 2025</td>
+                    <td className="py-3 px-4 text-right">7.42p</td>
+                    <td className="py-3 px-4 text-right">29.60p</td>
+                    <td className="py-3 px-4 text-right">£1,928</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <p className="text-xs text-slate-500 mt-3">
-              *Typical annual <strong>UK gas bill</strong> based on{' '}
-              <a href="https://www.ofgem.gov.uk/information-consumers/energy-advice-households/average-gas-and-electricity-use" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">
-                Ofgem typical domestic consumption values
-              </a>{' '}
-              (12,000 kWh/year). Actual <strong>bills</strong> vary by usage and region.
+              *Based on <a href="https://www.ofgem.gov.uk/information-consumers/energy-advice-households/average-gas-and-electricity-use" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">Ofgem typical consumption</a> (12,000 kWh/year)
             </p>
           </div>
         </div>
       </section>
 
-      {/* Average UK Gas Bills Section */}
-      <section id="average-bills" className="py-12 px-4">
-        <div className="max-w-4xl mx-auto">
+      {/* Average UK Gas Bills Section with Cozy Home Background */}
+      <section id="average-bills" className="relative py-16 px-4 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src={images.cozyHome.src}
+            alt={images.cozyHome.alt}
+            fill
+            className="object-cover opacity-20"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-900" />
+        </div>
+
+        <div className="relative max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-4 text-center">
             Average UK Gas Bills by Property Type
           </h2>
           <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
-            <strong>UK gas bill</strong> amounts vary significantly based on property size, insulation quality, and heating habits.
-            Use these figures as a reference when using our <strong>gas bill calculator UK</strong> tool.
+            <strong>UK gas bill</strong> amounts vary based on property size and insulation quality.
           </p>
 
-          {/* Typical Usage Reference */}
-          <div className="p-6 bg-gradient-to-r from-orange-500/10 to-amber-500/10 rounded-xl border border-orange-500/20 mb-8">
+          <div className="p-6 bg-slate-800/80 backdrop-blur-sm rounded-xl border border-orange-500/20 mb-8">
             <h3 className="text-lg font-semibold text-orange-400 mb-4">Typical UK Gas Usage by Property Size</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-              <div className="p-4 bg-slate-800/50 rounded-lg">
+              <div className="p-4 bg-slate-900/50 rounded-lg">
                 <p className="text-2xl font-bold text-white">8,000</p>
                 <p className="text-xs text-slate-400">kWh/year</p>
                 <p className="text-sm text-slate-300 mt-1">Small flat</p>
                 <p className="text-xs text-orange-400 mt-2">~£640/year*</p>
               </div>
-              <div className="p-4 bg-slate-800/50 rounded-lg">
+              <div className="p-4 bg-slate-900/50 rounded-lg">
                 <p className="text-2xl font-bold text-white">12,000</p>
                 <p className="text-xs text-slate-400">kWh/year</p>
                 <p className="text-sm text-slate-300 mt-1">Medium house</p>
                 <p className="text-xs text-orange-400 mt-2">~£910/year*</p>
               </div>
-              <div className="p-4 bg-slate-800/50 rounded-lg">
+              <div className="p-4 bg-slate-900/50 rounded-lg">
                 <p className="text-2xl font-bold text-white">17,000</p>
                 <p className="text-xs text-slate-400">kWh/year</p>
                 <p className="text-sm text-slate-300 mt-1">Large house</p>
                 <p className="text-xs text-orange-400 mt-2">~£1,240/year*</p>
               </div>
-              <div className="p-4 bg-slate-800/50 rounded-lg">
+              <div className="p-4 bg-slate-900/50 rounded-lg">
                 <p className="text-2xl font-bold text-white">22,000+</p>
                 <p className="text-xs text-slate-400">kWh/year</p>
                 <p className="text-sm text-slate-300 mt-1">Large detached</p>
@@ -608,72 +752,90 @@ export default function GasBillCalculatorPage() {
               </div>
             </div>
             <p className="text-xs text-slate-500 mt-4 text-center">
-              *Estimated <strong>UK gas bill</strong> using January 2026 price cap rates. Source:{' '}
-              <a href="https://www.ofgem.gov.uk/information-consumers/energy-advice-households/average-gas-and-electricity-use" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">
-                Ofgem typical domestic consumption values
-              </a>
+              *Using January 2026 price cap rates. Source: <a href="https://www.ofgem.gov.uk/information-consumers/energy-advice-households/average-gas-and-electricity-use" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">Ofgem</a>
             </p>
           </div>
 
-          {/* Regional Variations */}
-          <div className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50">
-            <h3 className="text-lg font-semibold text-white mb-4">Regional Variations in UK Gas Bills</h3>
-            <p className="text-slate-400 text-sm mb-4">
-              <strong>UK gas bills</strong> can vary by region due to different network costs and supplier pricing.
-              Northern regions typically have higher gas usage due to colder temperatures, while southern areas may have lower <strong>bills</strong>.
-            </p>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="p-4 bg-slate-900/50 rounded-lg">
-                <h4 className="font-medium text-white mb-2">Factors Affecting Regional UK Gas Bills</h4>
-                <ul className="text-sm text-slate-400 space-y-1">
-                  <li>• Local network distribution costs</li>
-                  <li>• Regional supplier pricing</li>
-                  <li>• Average winter temperatures</li>
-                  <li>• Housing stock efficiency</li>
-                </ul>
-              </div>
-              <div className="p-4 bg-slate-900/50 rounded-lg">
-                <h4 className="font-medium text-white mb-2">How to Find Your Exact Rates</h4>
-                <ul className="text-sm text-slate-400 space-y-1">
-                  <li>• Check your latest <strong>UK gas bill</strong></li>
-                  <li>• Log into your supplier account</li>
-                  <li>• Contact your energy supplier</li>
-                  <li>• Use our <strong>calculator</strong> with your rates</li>
-                </ul>
+          {/* Regional Variations with radiator image */}
+          <div className="relative p-6 bg-slate-800/80 backdrop-blur-sm rounded-xl border border-slate-700/50 overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 opacity-30">
+              <Image
+                src={images.radiator.src}
+                alt={images.radiator.alt}
+                fill
+                className="object-cover rounded-tr-xl"
+                sizes="128px"
+              />
+            </div>
+            <div className="relative">
+              <h3 className="text-lg font-semibold text-white mb-4">Regional Variations in UK Gas Bills</h3>
+              <p className="text-slate-400 text-sm mb-4">
+                <strong>UK gas bills</strong> can vary by region due to different network costs and climate.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="p-4 bg-slate-900/50 rounded-lg">
+                  <h4 className="font-medium text-white mb-2">Factors Affecting Bills</h4>
+                  <ul className="text-sm text-slate-400 space-y-1">
+                    <li>• Local network distribution costs</li>
+                    <li>• Regional supplier pricing</li>
+                    <li>• Average winter temperatures</li>
+                    <li>• Housing stock efficiency</li>
+                  </ul>
+                </div>
+                <div className="p-4 bg-slate-900/50 rounded-lg">
+                  <h4 className="font-medium text-white mb-2">Find Your Exact Rates</h4>
+                  <ul className="text-sm text-slate-400 space-y-1">
+                    <li>• Check your latest <strong>UK gas bill</strong></li>
+                    <li>• Log into your supplier account</li>
+                    <li>• Contact your energy supplier</li>
+                    <li>• Use our <strong>calculator</strong> with your rates</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Tips to Reduce Gas Bills Section */}
-      <section id="reduce-bills" className="py-12 px-4 bg-slate-900/50">
-        <div className="max-w-4xl mx-auto">
+      {/* Tips Section with Woman by Radiator Background */}
+      <section id="reduce-bills" className="relative py-16 px-4 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src={images.radiatorWoman.src}
+            alt={images.radiatorWoman.alt}
+            fill
+            className="object-cover opacity-15"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-900" />
+        </div>
+
+        <div className="relative max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-4 text-center">
             10 Tips to Reduce Your UK Gas Bill
           </h2>
           <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
-            Looking to lower your <strong>UK gas bill</strong>? Here are proven strategies recommended by the{' '}
+            Proven strategies from the{' '}
             <a href="https://www.energysavingtrust.org.uk/" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">
               Energy Saving Trust
             </a>{' '}
-            and other <strong>UK</strong> energy experts.
+            to lower your <strong>UK gas bill</strong>.
           </p>
 
           <div className="grid md:grid-cols-2 gap-4">
             {[
-              { title: "Lower your thermostat by 1°C", desc: "Can reduce your UK gas bill by up to 10% annually", icon: "🌡️" },
-              { title: "Service your boiler annually", desc: "Maintains efficiency and prevents costly breakdowns", icon: "🔧" },
-              { title: "Install a smart thermostat", desc: "Optimise heating schedules and save up to £150/year", icon: "📱" },
-              { title: "Improve home insulation", desc: "Loft and cavity wall insulation reduces heat loss significantly", icon: "🏠" },
-              { title: "Bleed radiators regularly", desc: "Trapped air reduces heating efficiency across your home", icon: "♨️" },
-              { title: "Use thermostatic radiator valves", desc: "Control heating room by room to avoid waste", icon: "🎛️" },
-              { title: "Draught-proof windows and doors", desc: "Simple fixes can save up to £60 per year on your bill", icon: "🚪" },
-              { title: "Compare energy suppliers", desc: "Switching tariffs could save you money on your UK gas bill", icon: "💰" },
-              { title: "Consider a boiler upgrade", desc: "Modern A-rated boilers are significantly more efficient", icon: "⬆️" },
-              { title: "Use heating controls effectively", desc: "Timer settings prevent heating an empty home", icon: "⏰" },
+              { title: "Lower thermostat by 1°C", desc: "Reduce your UK gas bill by up to 10% annually", icon: "🌡️" },
+              { title: "Service your boiler annually", desc: "Maintains efficiency and prevents breakdowns", icon: "🔧" },
+              { title: "Install a smart thermostat", desc: "Save up to £150/year with optimised schedules", icon: "📱" },
+              { title: "Improve home insulation", desc: "Loft and wall insulation reduces heat loss", icon: "🏠" },
+              { title: "Bleed radiators regularly", desc: "Remove trapped air for better efficiency", icon: "♨️" },
+              { title: "Use TRVs effectively", desc: "Control heating room by room", icon: "🎛️" },
+              { title: "Draught-proof your home", desc: "Save up to £60 per year on your bill", icon: "🚪" },
+              { title: "Compare energy suppliers", desc: "Switching could save you money", icon: "💰" },
+              { title: "Consider a boiler upgrade", desc: "Modern A-rated boilers are more efficient", icon: "⬆️" },
+              { title: "Use heating timer", desc: "Don't heat an empty home", icon: "⏰" },
             ].map((tip, index) => (
-              <div key={index} className="p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 flex items-start gap-3">
+              <div key={index} className="p-4 bg-slate-800/80 backdrop-blur-sm rounded-xl border border-slate-700/50 flex items-start gap-3">
                 <span className="text-2xl" role="img" aria-hidden="true">{tip.icon}</span>
                 <div>
                   <h3 className="font-medium text-white">{tip.title}</h3>
@@ -683,26 +845,16 @@ export default function GasBillCalculatorPage() {
             ))}
           </div>
 
-          <div className="mt-8 p-6 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-xl border border-green-500/20">
+          <div className="mt-8 p-6 bg-gradient-to-r from-green-500/20 to-emerald-500/10 backdrop-blur-sm rounded-xl border border-green-500/30">
             <h3 className="text-lg font-semibold text-green-400 mb-2">Need Help with Energy Efficiency?</h3>
             <p className="text-slate-400 text-sm mb-4">
-              The <strong>UK</strong> Government offers various grants and schemes to help improve your home&apos;s energy efficiency and reduce your <strong>gas bill</strong>.
+              The <strong>UK</strong> Government offers grants to improve home energy efficiency.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a
-                href="https://www.gov.uk/improve-energy-efficiency"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 bg-green-500/20 hover:bg-green-500/30 border border-green-500/30 rounded-lg text-green-300 text-sm transition-colors"
-              >
-                UK Government Energy Grants →
+              <a href="https://www.gov.uk/improve-energy-efficiency" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-green-500/20 hover:bg-green-500/30 border border-green-500/30 rounded-lg text-green-300 text-sm transition-colors">
+                UK Government Grants →
               </a>
-              <a
-                href="https://www.energysavingtrust.org.uk/advice/grants-and-loans/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 bg-green-500/20 hover:bg-green-500/30 border border-green-500/30 rounded-lg text-green-300 text-sm transition-colors"
-              >
+              <a href="https://www.energysavingtrust.org.uk/advice/grants-and-loans/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-green-500/20 hover:bg-green-500/30 border border-green-500/30 rounded-lg text-green-300 text-sm transition-colors">
                 Energy Saving Trust Grants →
               </a>
             </div>
@@ -710,30 +862,36 @@ export default function GasBillCalculatorPage() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section id="faq" className="py-16 px-4">
-        <div className="max-w-3xl mx-auto">
+      {/* FAQ Section with Flame Background */}
+      <section id="faq" className="relative py-16 px-4 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src={images.flame.src}
+            alt={images.flame.alt}
+            fill
+            className="object-cover opacity-10"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-900/98 to-slate-900" />
+        </div>
+
+        <div className="relative max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-4">
             UK Gas Bill Calculator FAQ
           </h2>
           <p className="text-slate-400 text-center mb-12 max-w-xl mx-auto">
-            Common questions about <strong>UK gas bills</strong>, pricing, and using our <strong>gas bill calculator UK</strong> tool.
+            Common questions about <strong>UK gas bills</strong> and our <strong>gas bill calculator UK</strong> tool.
           </p>
 
           <div className="space-y-4">
             {faqs.map((faq, index) => (
               <details
                 key={index}
-                className="group p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 cursor-pointer"
+                className="group p-6 bg-slate-800/80 backdrop-blur-sm rounded-xl border border-slate-700/50 cursor-pointer"
               >
                 <summary className="flex items-center justify-between text-white font-medium list-none">
                   {faq.question}
-                  <svg
-                    className="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
+                  <svg className="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </summary>
@@ -746,89 +904,66 @@ export default function GasBillCalculatorPage() {
         </div>
       </section>
 
-      {/* Helpful Resources Section */}
-      <section id="resources" className="py-16 px-4 bg-slate-900/50">
-        <div className="max-w-4xl mx-auto">
+      {/* Resources Section with British Town Background */}
+      <section id="resources" className="relative py-16 px-4 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src={images.britishTown.src}
+            alt={images.britishTown.alt}
+            fill
+            className="object-cover opacity-15"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-900" />
+        </div>
+
+        <div className="relative max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-white text-center mb-4">
             Helpful Resources for UK Gas Bill Information
           </h2>
           <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
-            Official <strong>UK</strong> resources and regulatory bodies for energy consumers. Always consult these authoritative sources for the most accurate information about your <strong>gas bill</strong>.
+            Official <strong>UK</strong> resources for energy consumers.
           </p>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <a
-              href="https://www.ofgem.gov.uk/information-for-household-consumers"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group"
-            >
+            <a href="https://www.ofgem.gov.uk/information-for-household-consumers" target="_blank" rel="noopener noreferrer" className="p-6 bg-slate-800/80 backdrop-blur-sm rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group">
               <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-orange-400">Ofgem - UK Energy Regulator</h3>
-              <p className="text-slate-400 text-sm">Official <strong>UK</strong> energy regulator guidance on <strong>bills</strong>, switching suppliers, price cap information, and your rights as an energy consumer.</p>
+              <p className="text-slate-400 text-sm">Official guidance on <strong>bills</strong>, switching suppliers, and consumer rights.</p>
             </a>
 
-            <a
-              href="https://www.citizensadvice.org.uk/consumer/energy/energy-supply/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group"
-            >
+            <a href="https://www.citizensadvice.org.uk/consumer/energy/energy-supply/" target="_blank" rel="noopener noreferrer" className="p-6 bg-slate-800/80 backdrop-blur-sm rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group">
               <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-orange-400">Citizens Advice - Energy Help</h3>
-              <p className="text-slate-400 text-sm">Free, independent advice on <strong>UK gas bills</strong>, debt help, and resolving issues with your energy supplier.</p>
+              <p className="text-slate-400 text-sm">Free advice on <strong>UK gas bills</strong>, debt help, and supplier issues.</p>
             </a>
 
-            <a
-              href="https://www.gassaferegister.co.uk/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group"
-            >
+            <a href="https://www.gassaferegister.co.uk/" target="_blank" rel="noopener noreferrer" className="p-6 bg-slate-800/80 backdrop-blur-sm rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group">
               <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-orange-400">Gas Safe Register - UK</h3>
-              <p className="text-slate-400 text-sm">Find a <strong>UK</strong> registered gas engineer for boiler servicing, repairs, and installations. All <strong>UK</strong> gas work must be done by Gas Safe engineers.</p>
+              <p className="text-slate-400 text-sm">Find registered gas engineers for boiler servicing and repairs.</p>
             </a>
 
-            <a
-              href="https://www.energysavingtrust.org.uk/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group"
-            >
+            <a href="https://www.energysavingtrust.org.uk/" target="_blank" rel="noopener noreferrer" className="p-6 bg-slate-800/80 backdrop-blur-sm rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group">
               <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-orange-400">Energy Saving Trust</h3>
-              <p className="text-slate-400 text-sm">Tips and guidance on reducing your <strong>UK gas bill</strong> and improving home energy efficiency.</p>
+              <p className="text-slate-400 text-sm">Tips for reducing your <strong>UK gas bill</strong> and improving efficiency.</p>
             </a>
 
-            <a
-              href="https://www.gov.uk/guidance/gas-meter-readings-and-billing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group"
-            >
+            <a href="https://www.gov.uk/guidance/gas-meter-readings-and-billing" target="_blank" rel="noopener noreferrer" className="p-6 bg-slate-800/80 backdrop-blur-sm rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group">
               <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-orange-400">GOV.UK - Gas Meter Guidance</h3>
-              <p className="text-slate-400 text-sm">Official <strong>UK</strong> government information on gas meter readings, <strong>billing</strong>, and consumer rights.</p>
+              <p className="text-slate-400 text-sm">Official government information on meter readings and <strong>billing</strong>.</p>
             </a>
 
-            <a
-              href="https://www.moneysavingexpert.com/utilities/gas-electricity-bills/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group"
-            >
+            <a href="https://www.moneysavingexpert.com/utilities/gas-electricity-bills/" target="_blank" rel="noopener noreferrer" className="p-6 bg-slate-800/80 backdrop-blur-sm rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors group">
               <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-orange-400">MoneySavingExpert - Energy</h3>
-              <p className="text-slate-400 text-sm">Independent <strong>UK</strong> consumer advice on energy tariffs, switching, and reducing your <strong>gas bill</strong>.</p>
+              <p className="text-slate-400 text-sm">Independent advice on tariffs and reducing your <strong>gas bill</strong>.</p>
             </a>
           </div>
 
-          {/* CTA to main calculator */}
-          <div className="mt-12 p-6 bg-gradient-to-r from-orange-500/10 to-amber-500/10 rounded-xl border border-orange-500/20 text-center">
+          {/* CTA for Engineers */}
+          <div className="mt-12 p-6 bg-gradient-to-r from-orange-500/20 to-amber-500/10 backdrop-blur-sm rounded-xl border border-orange-500/30 text-center">
             <h3 className="text-lg font-semibold text-white mb-2">Are you a UK Gas Safe Engineer?</h3>
             <p className="text-slate-400 text-sm mb-4">
-              Use our professional <strong>gas rate calculator UK</strong> to calculate appliance heat input from meter readings.
-              Essential for commissioning, servicing, and fault-finding on <strong>UK</strong> gas appliances.
+              Use our professional <strong>gas rate calculator UK</strong> for appliance heat input calculations.
             </p>
-            <Link
-              href="/"
-              className="inline-flex px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-xl transition-colors"
-            >
+            <Link href="/" className="inline-flex px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-xl transition-colors shadow-lg">
               Gas Rate Calculator UK for Engineers
             </Link>
           </div>
@@ -839,17 +974,14 @@ export default function GasBillCalculatorPage() {
       <section className="py-8 px-4 bg-slate-800/50 border-t border-slate-700/50">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-sm text-slate-400">
-            <strong className="text-amber-400">Beta Notice:</strong> This <strong>gas bill calculator UK</strong> tool is currently in beta and provides estimates only.
-            For accurate <strong>billing</strong> information, always consult your energy supplier.
-            For gas safety concerns, always consult a{' '}
-            <a href="https://www.gassaferegister.co.uk/" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">
-              Gas Safe registered engineer
-            </a>{' '}
-            or contact{' '}
-            <a href="https://www.ofgem.gov.uk/" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">
-              Ofgem
-            </a>{' '}
-            for regulatory guidance.
+            <strong className="text-amber-400">Beta Notice:</strong> This <strong>gas bill calculator UK</strong> provides estimates only.
+            Always consult your energy supplier for accurate <strong>billing</strong>.
+            For gas safety, contact a{' '}
+            <a href="https://www.gassaferegister.co.uk/" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">Gas Safe registered engineer</a>{' '}
+            or <a href="https://www.ofgem.gov.uk/" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">Ofgem</a>.
+          </p>
+          <p className="text-xs text-slate-500 mt-2">
+            Images provided by <a href="https://unsplash.com/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white">Unsplash</a>
           </p>
         </div>
       </section>

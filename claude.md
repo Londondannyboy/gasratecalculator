@@ -301,6 +301,51 @@ Key files to extract:
 
 - `app/gas-bill-calculator/page.tsx` - Main page component
 - `app/gas-bill-calculator/layout.tsx` - SEO metadata
+- `next.config.ts` - Added Unsplash remote image support
+
+---
+
+### Unsplash Integration (January 2026)
+
+**API Credentials:**
+- Application ID: 846504
+- Access Key: `c_y_xJaw-p05vjKOKC5kdiZGw21trx9DbRYjWx-9AVY`
+- Secret Key: (stored securely)
+
+**Configuration:**
+Added Unsplash to `next.config.ts` remotePatterns for image optimization:
+```typescript
+images: {
+  remotePatterns: [
+    { protocol: 'https', hostname: 'images.unsplash.com' }
+  ]
+}
+```
+
+#### Images Used on Gas Bill Calculator Page (13 Total)
+
+| Image ID | Usage | Alt Text |
+|----------|-------|----------|
+| xxgNqAtIJ0s | Hero background | Gas flame burning on boiler |
+| 1709880945165 | Calculator section | Calculator for UK gas bill |
+| 1700047614820 | Calculator background | British pound notes |
+| RFAHj4tI37Y | Price cap section | Smart thermostat |
+| ljnWGE2IlEo | Average bills section | Cozy UK home with fireplace |
+| kAWXKpctuSY | Tips section | Woman by radiator |
+| PxBNsfu7FNs | FAQ section | Single gas flame |
+| qLlBswuGQJ0 | Resources section | British town |
+| VNnQf784q7s | Step 1 card | Gas meter |
+| UWznDqb7S9w | Step 2 card | British coins |
+| 2EgYygoXNgw | Step 3 card | UK house at night |
+| blhlWKx28gA | Regional section | White radiator |
+| okngblc5z0k | Step 4 card | Window (insulation) |
+
+**Implementation Pattern:**
+- All section backgrounds use gradient overlays for text readability
+- Card images use opacity transitions on hover
+- Proper alt text with keywords for SEO
+- Next.js Image component with `fill` and `sizes` for optimization
+- Unsplash attribution in footer
 
 ---
 
@@ -312,3 +357,4 @@ Key files to extract:
 - [ ] Optimise `/lpg-gas-rate-calculator` for "lpg gas calculator uk"
 - [ ] Add more internal linking between calculator pages
 - [ ] Consider adding comparison tool between calculators
+- [ ] Add Unsplash images to other calculator pages
