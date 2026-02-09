@@ -343,8 +343,65 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Related UK Calculators & Insurance */}
       <section className="py-16 px-4 bg-slate-900/50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-white text-center mb-4">
+            Related UK Calculators
+          </h2>
+          <p className="text-slate-400 text-center mb-8">
+            Explore our other free calculators and insurance comparison tools for UK households.
+          </p>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <a
+              href="https://energybillcalculator.quest"
+              className="p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors"
+            >
+              <span className="font-semibold text-white">Energy Bill Calculator</span>
+              <span className="block text-slate-400 text-sm">Calculate your monthly energy costs</span>
+            </a>
+            <a
+              href="https://utilitybillcalculator.quest"
+              className="p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors"
+            >
+              <span className="font-semibold text-white">Utility Bill Calculator</span>
+              <span className="block text-slate-400 text-sm">Estimate combined utility costs</span>
+            </a>
+            <a
+              href="https://watersavingcalculator.quest"
+              className="p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors"
+            >
+              <span className="font-semibold text-white">Water Saving Calculator</span>
+              <span className="block text-slate-400 text-sm">Estimate water usage and savings</span>
+            </a>
+            <a
+              href="https://mortgagecalculator.quest"
+              className="p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors"
+            >
+              <span className="font-semibold text-white">Mortgage Calculator</span>
+              <span className="block text-slate-400 text-sm">Calculate monthly mortgage payments</span>
+            </a>
+            <a
+              href="https://homeinsurance.quest"
+              className="p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors"
+            >
+              <span className="font-semibold text-white">Home Insurance</span>
+              <span className="block text-slate-400 text-sm">Compare home insurance quotes</span>
+            </a>
+            <a
+              href="https://healthinsurance.quest"
+              className="p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-orange-500/50 transition-colors"
+            >
+              <span className="font-semibold text-white">Health Insurance</span>
+              <span className="block text-slate-400 text-sm">Compare private health insurance</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-white mb-4">
             Need Help With Gas Calculations?
